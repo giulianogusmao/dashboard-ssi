@@ -1,0 +1,184 @@
+@import './_essentials.scss';
+
+
+// =============================================================================================
+// generico
+
+html, body {
+  height: 100%;
+}
+
+body {
+    background-color: $cor-black-100;
+}
+
+.dash-title {
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  @extend %font-light;
+}
+
+// =============================================================================================
+// logotipos
+
+.logo-telefonica {
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+  overflow: hidden;
+  height: 0 !important;
+  color: #ffffff;
+  $image: "#{$url-path-image}logo-telefonica-branco.png";
+  $width: 16.4rem;
+  $height: 4.5rem;
+  @include setImageHeight($image, $width, $height);
+}
+
+.logo-telefonica-vivo {
+  @extend .logo-telefonica;
+
+  $image: "#{$url-path-image}logo-telefonica-vivo-branco.png";
+  $width: 16.2rem;
+  $height: 2.5rem;
+  @include setImageHeight($image, $width, $height);
+}
+
+// =============================================================================================
+// paginas de acesso
+
+.page-acesso {
+  overflow: hidden;
+  background: url("#{$url-path-image}bg-login.jpg") center center no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+  .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+
+    @media screen and (mim-width: $screen-sm-min) {
+      max-width: 40rem;
+    }
+  }
+} // fim .page-acesso
+
+
+//----------------------------------------------------------------------------------------------
+// login
+
+.page-login, .page-recuperar-senha {
+  .form-group {
+    max-width: 25rem;
+    margin: 0 auto 1.5rem;
+  }
+}
+
+.page-recuperar-senha .form-group {
+  max-width: 35rem;
+}
+
+
+//----------------------------------------------------------------------------------------------
+// painel
+
+.painel {
+  .header {
+    background-image: url("#{$url-path-image}/bg-header.jpg");
+    height: $painel-header-height;
+    color: #ffffff;
+
+    .container-fluid, .row, [class*="col-"] {
+      position: relative;
+      height: 100%;
+    }
+
+    [class*="logo"], .dash-title {
+      @extend %vertical-center;
+    }
+
+    .dash-title {
+      text-align: center;
+    }
+
+    .dash-title, .user-dados .info {
+      @extend %nowrap;
+    }
+
+    .user-dados {
+      float: right;
+      @extend %vertical-center;
+
+      .info, .foto {
+        float: left;
+        margin-left: .5rem;
+      }
+
+      .apresentacao {
+        font-size: 1.2rem;
+        @extend %font-light;
+      }
+
+      .nome {
+        @extend .text-capitalize;
+      }
+
+      .perfil {
+        text-align: right;
+        font-size: 1.1rem;
+        color: $cor-blue-1;
+        @extend .text-lowercase;
+      }
+
+      .foto {
+        height: $painel-header-user-foto;
+        width: $painel-header-user-foto;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    } // fim .user-dados
+
+    @media screen and (max-width: $screen-xs-max) {
+      .col-logo {
+        display: none;
+      }
+
+      .dash-title {
+        text-align: left;
+      }
+    }
+
+    @media screen and (max-width: $screen-xxs-max) {
+      .user-dados .info {
+        display: none;
+      }
+    }
+  } // fim .header
+
+  .second-menu {
+    background-color: $painel-second-menu-bg;
+    height: $painel-second-menu-height;
+    @extend %list-inline;
+
+    nav {
+      @extend %vertical-center;
+    }
+
+    a {
+      padding: .2rem .8rem;
+    }
+  }
+}// fim .painel

@@ -1,0 +1,11 @@
+.toast {
+  padding: 1rem 2rem;
+  display: inline-block;
+  background: rgba(0,0,0, .3);
+  color: #FFF;
+  border-radius: .3rem;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}

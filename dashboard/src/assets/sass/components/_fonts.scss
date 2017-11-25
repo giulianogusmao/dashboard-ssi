@@ -1,0 +1,47 @@
+@each $_fonte in $fontes {
+    $diretorio: '#{$url-path-fontes}/#{$_fonte}/';
+    $nome: '#{$family}-#{$_fonte}';
+
+    @font-face {
+        font-family: '#{$nome}';
+        src: url('#{$diretorio}#{$nome}.eot');
+        src: url('#{$diretorio}#{$nome}.eot?#iefix') format('embedded-opentype'),
+             url('#{$diretorio}#{$nome}.woff2') format('woff2'),
+             url('#{$diretorio}#{$nome}.woff') format('woff'),
+             url('#{$diretorio}#{$nome}.otf') format('truetype'),
+             url('#{$diretorio}#{$nome}.svg') format('svg');
+    }
+}
+
+html {
+  font-size: $font-size-reset;
+}
+
+// fonte regular
+html, body {
+  @extend %font-regular;
+}
+
+// Fonte negrito
+strong, b {
+    font-style: normal;
+    font-weight: bold;
+}
+
+em, i {
+	@extend %font-italic; // fonte-italic
+    font-style: normal;
+    font-weight: normal;
+
+	& b, & strong, b &, strong & {
+		@extend %font-italic; // fonte-bold-italic
+        font-style: normal;
+        font-weight: bold;
+	}
+}
+
+@each $name in ('light', 'regular') {
+  .font-#{$name} {
+    @extend %font-#{$name};
+  }
+}

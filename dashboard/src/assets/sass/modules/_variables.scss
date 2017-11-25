@@ -1,0 +1,109 @@
+﻿
+// =============================================================================================
+// PASTAS
+$url-path-assets: "assets/";
+$url-path-node: "node_modules/";
+$url-path-image: "#{$url-path-assets}/images/";
+
+
+// =============================================================================================
+// FONTE
+
+$url-path-fontes: "#{$url-path-assets}/fonts/Telefonica"; // desenvolvimento
+$family: "TelefonicaWeb";
+$fontes: "Light", "Regular", "RegularItalic", "Bold";
+
+$font-light: '#{$family}-Light';
+$font-regular: '#{$family}-Regular';
+$font-italic: '#{$family}-RegularItalic';
+$font-bold: '#{$family}-Bold';
+$font-outras: 'Helvetica Neue, Helvetica, Arial, sans-serif';
+
+%font-light { font-family: '#{$font-light}', #{$font-outras}; }
+%font-regular { font-family: '#{$font-regular}', #{$font-outras}; }
+%font-italic { font-family: '#{$font-italic}', #{$font-outras}; }
+%font-bold { font-family: '#{$font-bold}', #{$font-outras}; }
+
+// fonts size
+$font-size-reset: 62.5% !default;
+
+$font-size-form: 1.4rem !default;
+$font-size-btn: 1.5rem !default;
+
+
+// =============================================================================================
+// CORES
+
+// escala de cinza
+$cor-black-900: #212121;
+$cor-black-800: #424242;
+$cor-black-700: #616161;
+$cor-black-600: #757575;
+$cor-black-500: #9E9E9E;
+$cor-black-400: #BDBDBD;
+$cor-black-300: #E0E0E0;
+$cor-black-200: #EEEEEE;
+$cor-black-100: #F5F5F5;
+$cor-black-50:  #FAFAFA;
+$cor-black-0:   #FFFFFF;
+
+// cores telefonica
+$cor-blue-10: #022231;
+$cor-blue-9: #003142;
+$cor-blue-8: #054051;
+$cor-blue-7: #074d5f;
+$cor-blue-6: #0f5c6f;
+$cor-blue-5: #156c7d;
+$cor-blue-4: #137a8b;
+$cor-blue-3: #1a8b9c;
+$cor-blue-2: #309fb1;
+$cor-blue-1: #00c6da;
+
+// cores fontes
+$cor-text-form: $cor-black-700 !default;
+
+
+// =============================================================================================
+// border radius
+$border-radius: 0 !default;
+
+// dimensions
+$element-min-height: 4.5rem !default;
+
+
+// buttons
+$btn-border-radius: $border-radius !default;
+$btn-min-height: $element-min-height !default;
+
+// inputs
+$input-border-radius: $border-radius !default;
+$input-min-height: $element-min-height !default;
+
+
+
+// =============================================================================================
+// screen
+
+$screen-xxs-max: 489px;
+$screen-xs-min: 490px;
+$screen-xs-max: 767px;
+$screen-sm-min: 768px;
+$screen-sm-max: 991px;
+$screen-md-min: 992px;
+$screen-md-max: 1199px;
+$screen-lg-min: 1200px;
+
+$screen-max: 1400px;
+
+
+
+// =============================================================================================
+// painel
+
+// header
+$painel-header-height: 6rem;
+$painel-header-user-foto: 4rem;
+
+// second-menu
+$painel-second-menu-bg: $cor-black-300 !default;
+$painel-second-menu-height: 3rem;

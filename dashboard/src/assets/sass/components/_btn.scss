@@ -1,0 +1,34 @@
+button, [type="button"], .btn {
+  line-height: 1;
+  padding: 10px 16px;
+  border-radius: $btn-border-radius;
+  min-height: $btn-min-height;
+  font-size: $font-size-btn;
+
+  &:active, &:focus {
+    box-shadow: none;
+    outline: none !important;
+  }
+}
+
+[class*="btn-outline"].btn-telefonica {
+  text-align: center;
+  min-width: 110px;
+  border: 2px solid;
+  background-color: transparent;
+
+  &, &:hover, &:focus, &:active {
+    color: #FFF;
+  }
+}
+
+@each $name, $color in ('primary': $cor-blue-1) {
+  .btn-outline-#{$name}.btn-telefonica {
+    border-color: $color;
+
+    &:hover, &:focus, &:active {
+      background-color: rgba($color, .4);
+    }
+  }
+}
+

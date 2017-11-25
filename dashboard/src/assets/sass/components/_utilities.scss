@@ -1,0 +1,57 @@
+// gerando margins e paddings de auxilio
+/*
+  Where property is one of:
+  m - for classes that set margin
+  p - for classes that set padding
+
+  Where sides is one of:
+  t - for classes that set margin-top or padding-top
+  b - for classes that set margin-bottom or padding-bottom
+  l - for classes that set margin-left or padding-left
+  r - for classes that set margin-right or padding-right
+  x - for classes that set both *-left and *-right
+  y - for classes that set both *-top and *-bottom
+  blank - for classes that set a margin or padding on all 4 sides of the element
+*/
+
+$spacer: .5rem;
+
+@each $prefix, $property in ('m': 'margin', 'p': 'padding') {
+  @for $i from 0 through 5 {
+    .#{$prefix}t-#{$i} { #{$property}-top: $spacer * $i !important; }
+    .#{$prefix}b-#{$i} { #{$property}-bottom: $spacer * $i !important; }
+    .#{$prefix}l-#{$i} { #{$property}-left: $spacer * $i !important; }
+    .#{$prefix}r-#{$i} { #{$property}-right: $spacer * $i !important; }
+    .#{$prefix}y-#{$i} { #{$property}-top: $spacer * $i !important; #{$property}-bottom: $spacer * $i !important; }
+    .#{$prefix}x-#{$i} { #{$property}-left: $spacer * $i !important; #{$property}-right: $spacer * $i !important; }
+  }
+
+  .#{$prefix}t-auto { #{$property}-top: auto !important; }
+  .#{$prefix}b-auto { #{$property}-bottom: auto !important; }
+  .#{$prefix}l-auto { #{$property}-left: auto !important; }
+  .#{$prefix}r-auto { #{$property}-right: auto !important; }
+  .#{$prefix}y-auto { #{$property}-top: auto !important; #{$property}-bottom: auto !important; }
+  .#{$prefix}x-auto { #{$property}-left: auto !important; #{$property}-right: auto !important; }
+}
+
+// text colors
+@each $name, $color in (
+  'white': #FFFFFF
+) {
+  .text-#{$name} {
+    &, &:focus, &:visited, &:hover, &:active {
+      color: $color;
+    }
+  }
+}
+
+// text transforms
+.text-lowercase {
+  text-transform: lowercase;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
