@@ -1,0 +1,11 @@
+.simple-notification {
+  padding: 2rem 2rem !important;
+  min-height: 6rem !important;
+
+  &.alert {
+    background: rgba(black, .7) !important;
+    .sn-progress-loader span {
+      background: rgba(white, .1) !important;
+    }
+  }
+}

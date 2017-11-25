@@ -14,7 +14,6 @@ const acessoRoutes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LogoutComponent },
       { path: 'recuperar-acesso', component: RecuperarAcessoComponent },
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: '**', redirectTo: 'login', pathMatch: 'full' },
     ],
   },
