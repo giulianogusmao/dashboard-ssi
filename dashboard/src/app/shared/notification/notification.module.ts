@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import {
+  SimpleNotificationsModule,
+  // NotificationsService,
+} from 'angular2-notifications';
 
 import { NotificationComponent } from './notification.component';
 
@@ -14,5 +17,8 @@ import { NotificationComponent } from './notification.component';
     SimpleNotificationsModule,
     NotificationComponent,
   ],
+  providers: [
+    // NotificationsService,
+  ]
 })
 export class NotificationModule { }

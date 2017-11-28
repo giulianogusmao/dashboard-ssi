@@ -5,6 +5,10 @@ import { Component } from '@angular/core';
   templateUrl: 'notification.component.html',
 })
 export class NotificationComponent {
+  /*
+   * Documentação:
+   * https://jaspero.co/resources/projects/ng-notifications
+   */
 
   public options = {
     // position: ['bottom', 'left'],
@@ -19,5 +23,4 @@ export class NotificationComponent {
       'success': null,
     }
   };
-
 }
