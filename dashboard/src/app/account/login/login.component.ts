@@ -1,14 +1,15 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { NotificationsService } from 'angular2-notifications';
+
+import { AuthService } from '../../_services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   private _inscricao: Subscription;
@@ -17,27 +18,30 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private _router: Router,
     private _fb: FormBuilder,
-    private _notificationService: NotificationsService
-  ) {
+    private _authService: AuthService,
+  ) { }
+
+  login() {
+    if (this.form.valid) {
+      this._inscricao = this._authService
+        .login(this.form.value.login, this.form.value.password)
+        .subscribe(
+        res => this._router.navigate(['/dashboard']),
+        err => console.log(err)
+        );
+    }
+  }
+
+  ngOnInit() {
+    this._authService.logout();
+
     this.form = this._fb.group({
       login: [null, Validators.required],
       password: [null, Validators.required],
     });
   }
 
-  login() {
-    this._notifications.push(
-      this._notificationService.html('Eita bicho', 'alert', 'custon-style')
-    );
-  }
-
   ngOnDestroy() {
-    try {
-      this._notifications.forEach(
-        notificacao => this._notificationService.remove(notificacao['id'])
-      );
-    } catch (e) { }
-
     try {
       this._inscricao.unsubscribe();
     } catch (e) { }

@@ -1,0 +1,17 @@
+<section class="second-menu">
+  <nav class="container-fluid">
+    <ul class="pull-left">
+      <li *ngIf="msgMenu">{{ msgMenu }}</li>
+      <li routerLinkActive="active" *ngFor="let item of menu">
+        <a routerLink="{{ routerPainel + item.link }}">{{ item.label }}</a>
+      </li>
+    </ul>
+
+    <ul class="pull-right menu-right">
+      <li>
+        <a href="#" (click)="logout($event)">Sair</a>
+      </li>
+    </ul>
+    <div class="clearfix"></div>
+  </nav>
+</section>
