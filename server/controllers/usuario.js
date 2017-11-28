@@ -1,7 +1,8 @@
 module.exports = function (app) {
-    var route = '/usuario';
+    var route = '/api';
 
     var User = {
+        "id": "L5s4dfa8s4fda6s5dfSDSFF4s65df48sf4ds6F",
         "nome": "giuliano Gregory guimarães gusmão",
         "login": "giuliano.gusmao",
         "perfil": "administrador",
@@ -14,17 +15,17 @@ module.exports = function (app) {
         );
     });
 
-    app.post(route + '/autentica', function (req, res) {
+    app.post(route + '/authenticate', function (req, res) {
         var request = req.body;
 
         var usuarios = [
-            { "login": "teste1", "password": "123" },
-            { "login": "teste", "password": "123" },
-            { "login": "giuliano", "password": 'teste' },
+            { "username": "teste1", "password": "123" },
+            { "username": "teste", "password": "123" },
+            { "username": "giuliano", "password": 'teste' },
         ];
 
-        var usuario = usuarios.filter(function (usuario) {
-            return usuario.login == request.login && usuario.password == request.password;
+        var usuario = usuarios.filter(function (u) {
+            return u.username == request.username && u.password == request.password;
         });
 
         res.send(usuario.length ? User : { "Error": true });       

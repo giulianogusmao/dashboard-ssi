@@ -3,7 +3,7 @@
     <ul class="pull-left">
       <li *ngIf="msgMenu">{{ msgMenu }}</li>
       <li routerLinkActive="active" *ngFor="let item of menu">
-        <a routerLink="{{ routerPainel + item.link }}">{{ item.label }}</a>
+        <a routerLink="{{ routerMain + item.link }}">{{ item.label }}</a>
       </li>
     </ul>
 

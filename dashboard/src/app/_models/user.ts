@@ -41,11 +41,22 @@ export class User {
   }
 
   separaNome(nome: string) {
-    const arrayNome = this.nome.split(' ');
-    this._primeiroNome = arrayNome[0];
+    try {
+      const arrayNome = this.nome.split(' ');
+      this._primeiroNome = arrayNome[0];
 
-    if (arrayNome.length > 1) {
-      this._ultimoNome = arrayNome[arrayNome.length - 1];
-    }
+      if (arrayNome.length > 1) {
+        this._ultimoNome = arrayNome[arrayNome.length - 1];
+      }
+    } catch (e) { }
+  }
+
+  toString() {
+    return JSON.stringify({
+      'nome': this.nome,
+      'perfil': this.perfil,
+      'login': this.login,
+      'token': this.token,
+    });
   }
 }

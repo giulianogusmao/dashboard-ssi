@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions, } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Helper } from '../_helpers/helper';
-import { User, UserRequest } from '../_models/index';
+import { User, UserResponse } from '../_models/index';
 
 @Injectable()
 export class AuthService {
 
-  private _isAuthenticated: boolean;
+  private static _user: User;
 
   constructor(
     private _router: Router,
@@ -18,11 +18,11 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this._http
-      .post('/api/authenticate', { username, password })
+      .post(Helper.apiUrl('/authenticate'), { username, password })
       .map(res => res.json())
-      .do((user: UserRequest) => {
+      .do((user: UserResponse) => {
         if (user && user.token) {
-          this._setAuthenticate(new User(user.nome, user.perfil, user.login, user.token));
+          this._setAuthenticate(user);
         } else {
           this._setAuthenticate();
           throw new Error('Login/Senha incorreto!');
@@ -42,20 +42,44 @@ export class AuthService {
   }
 
   get user() {
-    return localStorage.getItem('currentUser');
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return this._createUser(user);
   }
 
   get isAuthenticated(): boolean {
-    return this._isAuthenticated;
+    try {
+      return !!this.user.token;
+    } catch (e) {
+      return false;
+    }
   }
 
-  private _setAuthenticate(user: User = <User>{}) {
-    this._isAuthenticated = !!user;
+  private _createUser(user: UserResponse): User {
+    try {
+      if (!AuthService._user) {
+        AuthService._user = new User(user.nome, user.perfil, user.login, user.token);
+      }
 
-    if (user) {
+      return AuthService._user;
+    } catch (e) {
+      throw new Error('Não foi possível instanciar o usuário');
+    }
+  }
+
+  private _setAuthenticate(user?: UserResponse) {
+    if (user && user.token) {
       localStorage.setItem('currentUser', JSON.stringify(user));
     } else {
       localStorage.removeItem('currentUser');
+      AuthService._user = <User>{};
+    }
+  }
+
+  getHeader() {
+    if (this.user.token) {
+      return new RequestOptions({
+        headers: new Headers({ 'Authorization': 'Bearer ' + this.user.token }),
+      });
     }
   }
 

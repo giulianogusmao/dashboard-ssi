@@ -1,5 +1,5 @@
-export class UserRequest {
-  id: number;
+export class UserResponse {
+  id: string;
   login: string;
   nome: string;
   token: string;

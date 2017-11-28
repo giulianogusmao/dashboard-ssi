@@ -1,5 +1,5 @@
 module.exports = function (app) {
-    var route = '/menu';
+    var route = '/api/menu';
 
     app.get(route, function (request, response) {
         response.send(

@@ -12,9 +12,9 @@ import { AppRouting } from './app.routing';
 // services
 import { AuthService } from './_services/auth.service';
 // fake backend
-import { fakeBackendProvider } from './_helpers/index';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
+// import { fakeBackendProvider } from './_helpers/index';
+// import { MockBackend, MockConnection } from '@angular/http/testing';
+// import { BaseRequestOptions } from '@angular/http';
 
 // components
 import { AppComponent } from './app.component';
@@ -34,9 +34,9 @@ import { AppComponent } from './app.component';
     AuthService,
 
     // providers used to create fake backend
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions,
+    // fakeBackendProvider,
+    // MockBackend,
+    // BaseRequestOptions,
   ],
   bootstrap: [AppComponent]
 })

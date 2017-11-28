@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  public routerMain = '/dashboard';
+
   constructor() { }
 
   ngOnInit() {
