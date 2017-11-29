@@ -10,11 +10,11 @@ module.exports = function (app) {
                 },
                 {
                     "label": "Listar SLAs",
-                    "link": "/sla"
+                    "link": "/slas"
                 },
                 {
                     "label": "Cadastrar SLA",
-                    "link": "/sla-cadastrar"
+                    "link": "/slas/novo"
                 }
             ])
         );
