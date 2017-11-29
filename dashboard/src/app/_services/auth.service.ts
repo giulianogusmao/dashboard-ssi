@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { Helper } from '../_helpers/helper';
-import { User, UserResponse } from '../_models/index';
+import { User, IUser } from '../_models/index';
 
 @Injectable()
 export class AuthService {
@@ -16,23 +16,16 @@ export class AuthService {
     private _http: Http,
   ) { }
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<Response> {
     return this._http
       .post(Helper.apiUrl('/authenticate'), { username, password })
-      .map(res => res.json())
-      .do((user: UserResponse) => {
-        if (user && user.token) {
-          this._setAuthenticate(user);
-        } else {
-          this._setAuthenticate();
-          throw new Error('Login/Senha incorreto!');
+      .map(Helper.extractData)
+      .do((data: IUser) => {
+        if (data && data.token) {
+          this._setAuthenticate(data);
         }
       })
-      .catch(err => {
-        console.error(err);
-        this._setAuthenticate();
-        throw new Error('Ocorreu um erro, tente novamente.');
-      });
+      .catch(Helper.handleError);
   }
 
   logout(): void {
@@ -54,7 +47,7 @@ export class AuthService {
     }
   }
 
-  private _createUser(user: UserResponse): User {
+  private _createUser(user: IUser): User {
     try {
       if (!AuthService._user) {
         AuthService._user = new User(user.nome, user.perfil, user.login, user.token);
@@ -66,7 +59,7 @@ export class AuthService {
     }
   }
 
-  private _setAuthenticate(user?: UserResponse) {
+  private _setAuthenticate(user?: IUser) {
     if (user && user.token) {
       localStorage.setItem('currentUser', JSON.stringify(user));
     } else {

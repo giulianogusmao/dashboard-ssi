@@ -8,11 +8,13 @@ import { DashboardComponent } from './dashboard.component';
 import { AppHeaderComponent } from './cabecalho/app-header/app-header.component';
 import { AppMenuComponent } from './cabecalho/app-menu/app-menu.component';
 import { HomeComponent } from './home/home.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    SharedModule,
   ],
   declarations: [
     DashboardComponent,

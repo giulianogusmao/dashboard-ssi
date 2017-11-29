@@ -1,4 +1,4 @@
-export class UserResponse {
+export interface IUser {
   id: string;
   login: string;
   nome: string;

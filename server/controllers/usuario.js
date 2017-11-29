@@ -28,7 +28,9 @@ module.exports = function (app) {
             return u.username == request.username && u.password == request.password;
         });
 
-        res.send(usuario.length ? User : { "Error": true });       
-
+        if (usuario.length)
+            res.send({ "Error": false, "Message": "", "data": User });
+        else
+            res.status(400).send({ "Error": true, "Message": "Login ou Senha incorretos!" });
     });
 }
