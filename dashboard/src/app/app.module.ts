@@ -6,11 +6,14 @@ import { HttpModule } from '@angular/http';
 import { SharedModule } from './shared/shared.module';
 import { AccountModule } from './account/account.module';
 
+// guards
+import { AuthenticateGuard } from './_guards/index';
+
 // routing
 import { AppRouting } from './app.routing';
 
 // services
-import { AuthService } from './_services/auth.service';
+import { AuthService } from './_services/index';
 
 // components
 import { AppComponent } from './app.component';
@@ -27,6 +30,7 @@ import { AppComponent } from './app.component';
     AccountModule,
   ],
   providers: [
+    AuthenticateGuard,
     AuthService,
   ],
   bootstrap: [AppComponent]

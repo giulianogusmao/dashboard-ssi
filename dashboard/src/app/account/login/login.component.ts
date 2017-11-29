@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this._inscricao = this._authService
         .login(this.form.value.login, this.form.value.password)
         .subscribe(
-        res => this._router.navigate(['/dashboard']),
+        () => this._router.navigate(['/dashboard']),
         err => console.error(err)
         );
     }

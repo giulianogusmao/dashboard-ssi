@@ -40,11 +40,7 @@ export class AuthService {
   }
 
   get isAuthenticated(): boolean {
-    try {
-      return !!this.user.token;
-    } catch (e) {
-      return false;
-    }
+    return !!localStorage.getItem('currentUser');
   }
 
   private _createUser(user: IUser): User {
