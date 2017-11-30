@@ -35,6 +35,7 @@ $font-size-btn: 1.5rem !default;
 // CORES
 
 // escala de cinza
+$cor-black-1:   #000000;
 $cor-black-900: #212121;
 $cor-black-800: #424242;
 $cor-black-700: #616161;
@@ -46,6 +47,7 @@ $cor-black-200: #EEEEEE;
 $cor-black-100: #F5F5F5;
 $cor-black-50:  #FAFAFA;
 $cor-black-0:   #FFFFFF;
+$cor-white: $cor-black-0;
 
 // cores telefonica
 $cor-blue-10: #022231;
@@ -58,6 +60,41 @@ $cor-blue-4: #137a8b;
 $cor-blue-3: #1a8b9c;
 $cor-blue-2: #309fb1;
 $cor-blue-1: #00c6da;
+
+// cores bootstrap
+$cor-bootstrap-primary: #337ab7;
+$cor-bootstrap-danger: #d9534f;
+$cor-bootstrap-warning: #f0ad4e;
+$cor-bootstrap-info: #5bc0de;
+$cor-bootstrap-success: #5cb85c;
+
+// cores tema
+$cor-dark: $cor-black-800;
+$cor-light: $cor-black-200;
+$cor-primary: $cor-blue-1;
+$cor-danger: $cor-bootstrap-danger;
+$cor-warning: $cor-bootstrap-warning;
+$cor-info: $cor-bootstrap-info;
+$cor-success: $cor-bootstrap-success;
+
+// cores light
+$cor-dark-light: lighten($cor-dark, 10);
+$cor-light-light: lighten($cor-light, 10);
+$cor-primary-light: lighten($cor-primary, 10);
+$cor-danger-light: lighten($cor-danger, 10);
+$cor-warning-light: lighten($cor-warning, 10);
+$cor-info-light: lighten($cor-info, 10);
+$cor-success-light: lighten($cor-success, 10);
+
+// cores dark
+$cor-dark-dark: darken($cor-dark, 10);
+$cor-light-dark: darken($cor-light, 10);
+$cor-primary-dark: darken($cor-primary, 10);
+$cor-danger-dark: darken($cor-danger, 10);
+$cor-warning-dark: darken($cor-warning, 10);
+$cor-info-dark: darken($cor-info, 10);
+$cor-success-dark: darken($cor-success, 10);
+
 
 // cores fontes
 $cor-text-form: $cor-black-700 !default;
@@ -72,12 +109,27 @@ $element-min-height: 4.5rem !default;
 
 
 // buttons
+$btn-padding: 1rem 1.6rem;
+$btn-border: 0;
+$btn-border-color: transparent !default;
 $btn-border-radius: $border-radius !default;
 $btn-min-height: $element-min-height !default;
 
+$btn-outline-border: .2rem;
+$btn-outline-border-color: $cor-primary !default;
+
 // inputs
+$input-border: 0.12rem solid;
+$input-border-color: $cor-blue-1 !default;
 $input-border-radius: $border-radius !default;
 $input-min-height: $element-min-height !default;
+
+// radio
+$input-radio-xy: 2rem;
+$input-radio-check-xy: $input-radio-xy/1.8;
+
+// label
+$label-padding-top: 1.2rem;
 
 
 

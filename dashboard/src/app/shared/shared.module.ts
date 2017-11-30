@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // rxjs
 import './rxjs/rxjs-operators';
@@ -11,9 +12,11 @@ import { AppBootstrapModule } from './bootstrap/bootstrap.module';
 @NgModule({
   imports: [
     AppBootstrapModule,
+    ReactiveFormsModule,
   ],
   exports: [
     AppBootstrapModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule { }

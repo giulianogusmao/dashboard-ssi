@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from './home/home.component';
-import { Page404Component } from './errors/index';
+import { Error404Component } from './errors/index';
 
 const acessoRoutes: Routes = [
   {
@@ -15,7 +15,7 @@ const acessoRoutes: Routes = [
       { path: 'slas', loadChildren: 'app/dashboard/slas/slas.module#SlasModule' },
       {
         path: '**',
-        component: Page404Component,
+        component: Error404Component,
         pathMatch: 'full'
       },
     ],

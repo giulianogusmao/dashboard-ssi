@@ -55,3 +55,8 @@ $spacer: .5rem;
 .text-capitalize {
   text-transform: capitalize;
 }
+
+// border
+.no-border{
+  border-color: transparent !important;
+}

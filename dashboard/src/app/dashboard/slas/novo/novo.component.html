@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <form class="form-horizontal">
+      <div class="form-horizontal">
         <p class="text-right">Observação: Os campos com * são de preenchimento obrigatório.</p>
         <br>
 
@@ -27,16 +27,16 @@
         <div class="form-group">
           <label class="col-md-2 control-label">Prioridade:</label>
           <div class="col-md-10">
-            <div class="radio-inline">
-              <label>
-                <input type="radio" name="prioridade" value="urgente"> Urgente
-              </label>
+            <div class="radio radio-inline">
+              <input type="radio" id="urgente" name="prioridade" value="urgente">
+              <label for="urgente">Urgente</label>
+              <div class="check"></div>
             </div>
 
-            <div class="radio-inline">
-              <label>
-                <input type="radio" name="prioridade" value="nao-urgente"> Não-Urgente
-              </label>
+            <div class="radio radio-inline">
+              <input type="radio" id="naourgente" name="prioridade" value="nao-urgente">
+              <label for="naourgente">Não-Urgente</label>
+              <div class="check"></div>
             </div>
           </div>
         </div>
@@ -52,9 +52,9 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
+          <button type="submit" class="btn btn-telefonica btn-primary mw-4">Cadastrar</button>
         </div>
-      </form>
+      </div>
     </div><!-- end col -->
   </div><!-- end row -->
 

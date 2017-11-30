@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ISla } from './../_models/index';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-lista',
@@ -8,23 +10,125 @@ import { ISla } from './../_models/index';
 })
 export class ListaComponent implements OnInit {
 
-  lista: ISla[] = [
-    <ISla>{
-      idsla: 'asdfas123',
-      ativo: true,
-      status: 'novo',
-      sla: 15,
-      prioridade: 'Urgente',
-      complexidade: 'Baixa',
-      inicioDaVigencia: '01/09/2017',
-      finalDaVigencia: '',
-      area: 'Diretoria de Redes',
-      siglaArea: 'DR',
-    }
+  columns = [
+    // { label: 'ID', value: 'idsla' },
+    { label: 'Ativo', value: 'ativo' },
+    { label: 'Status', value: 'status' },
+    { label: 'Sigla', value: 'siglaArea' },
+    { label: 'Área Requisitada', value: 'area' },
+    { label: 'Complexidade', value: 'complexidade' },
+    { label: 'Prioridade', value: 'prioridade' },
+    { label: 'SLA', value: 'sla' },
+    { label: 'Início da vigência', value: 'inicioDaVigencia' },
+    { label: 'Final da vigência', value: 'finalDaVigencia' },
   ];
-  constructor() { }
+
+  filteredSlas: ISla[] = [];
+  private _slas: ISla[] = [];
+
+  form: FormGroup;
+  private _filter: string = null;
+
+  constructor(
+    private _fb: FormBuilder
+  ) { }
 
   ngOnInit() {
+    // carrega slas
+    this._loadLista();
+
+    // instacia form de pesquisa
+    this.form = this._fb.group({
+      buscar: '',
+      coluna: '',
+    });
+
+    this.buscar();
+  }
+
+  buscar() {
+    // if (this.form.value.buscar !== this._filter) {
+      // salva último filtro aplicado
+      this._filter = this.form.value.buscar;
+      // caso tenha filtro: filtra lista, senão retorna a lista completa
+      this.filteredSlas = this._filter
+        ? this._filterSlas(this._filter, this.form.value.coluna)
+        : this._slas;
+    // }
+  }
+
+  reset() {
+    this.form.setValue({
+      buscar: '',
+      coluna: ''
+    });
+
+    if (this._filter) {
+      this.buscar();
+    }
+  }
+
+  private _filterSlas(filter: string, column: string): ISla[] {
+    const filterBy = filter.toLocaleLowerCase();
+
+    const result = this._slas.filter(sla => {
+
+      if (column) {
+        try {
+        return sla[column].toString().toLocaleLowerCase().indexOf(filterBy) !== -1;
+        } catch (e) {
+          console.error(`Coluna ${column} não existe na lista de SLAs`);
+          return false;
+        }
+      } else {
+        let exists = false;
+
+        Object.keys(sla).forEach(key => {
+          if (sla[key].toString().toLocaleLowerCase().indexOf(filterBy) !== -1) {
+            exists = true;
+          }
+        });
+
+        return exists;
+      }
+    });
+
+    // sla.area.toLocaleLowerCase().indexOf(filterBy) !== -1
+
+    return result;
+  }
+
+  private _loadLista() {
+    this._slas = [
+      <ISla>{
+        idsla: 'asdfas123',
+        ativo: true,
+        status: 'novo',
+        sla: 15,
+        prioridade: 'Urgente',
+        complexidade: 'Baixa',
+        inicioDaVigencia: '01/09/2017',
+        finalDaVigencia: '',
+        area: 'Diretoria de Redes',
+        siglaArea: 'DR',
+      },
+      <ISla>{
+        idsla: '5423454',
+        ativo: false,
+        status: 'aguardando aprovação',
+        sla: 15,
+        prioridade: 'Não urgente',
+        complexidade: 'Alta',
+        inicioDaVigencia: '15/09/2017',
+        finalDaVigencia: '30/09/2017',
+        area: 'Diretoria de Redes',
+        siglaArea: 'DR',
+      }
+    ];
+  }
+
+  trackById(index, sla: ISla) {
+    return sla.idsla;
   }
 
 }

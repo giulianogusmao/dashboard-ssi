@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 // modules
 import { SharedModule } from '../shared/shared.module';
@@ -14,7 +13,6 @@ import { RecuperarAcessoComponent } from './recuperar-acesso/recuperar-acesso.co
 
 @NgModule({
   imports: [
-    ReactiveFormsModule,
     AccountRouting,
     SharedModule,
   ],

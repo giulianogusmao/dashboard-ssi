@@ -11,4 +11,4 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
-export class Page404Component { }
+export class Error404Component { }

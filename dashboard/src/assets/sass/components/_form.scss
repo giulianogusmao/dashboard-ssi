@@ -1,14 +1,102 @@
 input, select, textarea, [type="checkbox"], .form-control {
   border-radius: $input-border-radius;
   padding: 0 16px;
+  border: $input-border;
   min-height: $input-min-height;
-  border: 0;
+  border-color: $input-border-color;
   color: $cor-text-form;
   font-size: $font-size-form;
 }
 
 input, textarea {
   &:focus {
-    box-shadow: 0 1px 0 0 #66afe9;
+    box-shadow: 0 1px 0 0 $cor-blue-2;
+  }
+}
+
+.form-horizontal {
+  .control-label {
+    padding-top: $label-padding-top;
+  }
+
+  .radio-inline {
+    min-height: $input-min-height;
+    padding-top: $label-padding-top;
+
+    input[type="radio"] {
+      margin-top: -$label-padding-top;
+    }
+  }
+}
+
+
+// radio
+// ------------------------------------
+.form-group {
+  .radio {
+    input[type="radio"] {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    label{
+      display: block;
+      position: relative;
+      z-index: 3;
+      cursor: pointer;
+      padding-left: 1rem;
+    }
+
+    &:hover label{
+      color: $cor-black-900;
+    }
+
+    & .check{
+      display: block;
+      position: absolute;
+      border: $input-border;
+      border-color: $cor-blue-1;
+      border-radius: 100%;
+      left: .4rem;
+      height: $input-radio-xy;
+      width: $input-radio-xy;
+      top: $label-padding-top;
+      z-index: 2;
+    }
+
+    & .check::before {
+      display: block;
+      position: absolute;
+      content: '';
+      border-radius: 100%;
+      height: $input-radio-check-xy;
+      width: $input-radio-check-xy;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  // input[type=radio]:checked ~ .check {
+  //   border: .1rem solid $cor-blue-3;
+  // }
+
+  input[type=radio]:checked ~ .check::before{
+    background: $cor-blue-1;
+  }
+
+  // input[type=radio]:checked ~ label{
+  //   color: $cor-black-1;
+  // }
+}
+
+
+// input-group
+.input-group {
+  &.no-border {
+    input, select, .input-group-btn {
+      border: none !important;
+      box-shadow: none;
+    }
   }
 }

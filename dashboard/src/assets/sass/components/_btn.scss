@@ -1,29 +1,52 @@
-button, [type="button"], .btn {
+.btn-telefonica {
   line-height: 1;
-  padding: 10px 16px;
+  padding: $btn-padding;
   border-radius: $btn-border-radius;
   min-height: $btn-min-height;
   font-size: $font-size-btn;
+  border-color: $btn-border-color;
+  border-width: $btn-border;
 
   &:active, &:focus {
     box-shadow: none;
     outline: none !important;
   }
-}
 
-[class*="btn-outline"].btn-telefonica {
-  text-align: center;
-  min-width: 110px;
-  border: 2px solid;
-  background-color: transparent;
+  &.text-white {
+    color: $cor-white !important;
+  }
 
-  &, &:hover, &:focus, &:active {
-    color: #FFF;
+  &.text-black {
+    color: $cor-black-900 !important;
+  }
+
+  @for $i from 1 through 4 {
+    &.mw-#{$i} {
+      min-width: #{$i * 2 + 6}rem;
+    }
   }
 }
 
-@each $name, $color in ('primary': $cor-blue-1) {
-  .btn-outline-#{$name}.btn-telefonica {
+@each $name, $color, $color-light, $color-dark in (
+ ('dark', $cor-dark, $cor-dark-light, $cor-dark-dark),
+ ('light', $cor-light, $cor-light-light, $cor-light-dark),
+ ('primary', $cor-primary, $cor-primary-light, $cor-primary-dark),
+ ('danger', $cor-danger, $cor-danger-light, $cor-danger-dark),
+ ('warning', $cor-warning, $cor-warning-light, $cor-warning-dark),
+ ('info', $cor-info, $cor-info-light, $cor-info-dark),
+ ('success', $cor-success, $cor-success-light, $cor-success-dark)
+  ) {
+  .btn-telefonica.btn-#{$name} {
+    color: $cor-white;
+    background-color: $color;
+
+    &:hover, &:focus, &:active {
+      background-color: $color-dark;
+    }
+  }
+
+  .btn-telefonica.btn-outline.btn-#{$name} {
+    color: $color;
     border-color: $color;
 
     &:hover, &:focus, &:active {
@@ -32,3 +55,14 @@ button, [type="button"], .btn {
   }
 }
 
+// btn-outline
+[class*="btn-outline"].btn-telefonica {
+  text-align: center;
+  border: $btn-outline-border solid;
+  background-color: transparent;
+}
+
+.btn-fechar {
+  font-size: 3rem;
+  line-height: 1rem;
+}

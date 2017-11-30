@@ -20,6 +20,7 @@ html {
 // fonte regular
 html, body {
   @extend %font-regular;
+  color: $cor-black-800;
 }
 
 // Fonte negrito

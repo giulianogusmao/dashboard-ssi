@@ -1,1 +1,1 @@
-export * from './page404.component';
+export * from './Error404.component';
