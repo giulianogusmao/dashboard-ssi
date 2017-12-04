@@ -17,6 +17,8 @@ input, textarea {
 .form-horizontal {
   .control-label {
     padding-top: $label-padding-top;
+    padding-right: 0;
+    margin-bottom: .5rem;
   }
 
   .radio-inline {
@@ -25,6 +27,12 @@ input, textarea {
 
     input[type="radio"] {
       margin-top: -$label-padding-top;
+    }
+  }
+
+  @media screen and (max-width: $screen-sm-max){
+    .form-group {
+      margin-bottom: .5rem;
     }
   }
 }
@@ -40,11 +48,8 @@ input, textarea {
     }
 
     label{
-      display: block;
-      position: relative;
-      z-index: 3;
       cursor: pointer;
-      padding-left: 1rem;
+      padding-left: .5rem;
     }
 
     &:hover label{
@@ -57,11 +62,9 @@ input, textarea {
       border: $input-border;
       border-color: $cor-blue-1;
       border-radius: 100%;
-      left: .4rem;
       height: $input-radio-xy;
       width: $input-radio-xy;
-      top: $label-padding-top;
-      z-index: 2;
+      left: 0;
     }
 
     & .check::before {
@@ -93,10 +96,32 @@ input, textarea {
 
 // input-group
 .input-group {
+  height: $input-min-height;
+
+  input {
+    min-height: 100%;
+  }
+
   &.no-border {
     input, select, .input-group-btn {
       border: none !important;
       box-shadow: none;
     }
+  }
+
+  .input-group-addon-telefonica {
+    border: $input-border;
+    border-left: 0;
+    background-color: rgba($cor-black-100, 1);
+    border-radius: $input-border-radius;
+    .form-group:not(.has-error) & {
+      border-color: $input-border-color;
+    }
+  }
+
+
+  input {
+    border-right: 0;
+    box-shadow: none;
   }
 }

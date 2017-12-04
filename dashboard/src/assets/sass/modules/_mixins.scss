@@ -30,6 +30,22 @@
   }
 }
 
+%transition {
+    transition: all .3s ease-in-out;
+}
+
+%transition-fast {
+    transition: all .1s ease-in-out;
+}
+
+%transition-fast-linear {
+    transition: all .1s linear;
+}
+
+%transition-slow {
+    transition: all .6s ease-in-out;
+}
+
 // =============================================================================================
 @mixin setImageHeight($image, $width, $height, $proporcao: 1) {
     width: $width * $proporcao;
