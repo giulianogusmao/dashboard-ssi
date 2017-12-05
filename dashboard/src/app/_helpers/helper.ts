@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Response } from '@angular/http';
+import { FormGroup } from '@angular/forms/src/model';
 
 export class Helper {
 
@@ -32,5 +33,35 @@ export class Helper {
     // instead of just logging it to the console
     console.error(error);
     return Observable.throw(error.json()['Message'] || 'Server error');
+  }
+
+  static markFormTouched(form: FormGroup) {
+    // marca os campos como tocados para exibir mensagens de validação
+    Object.keys(form.controls).forEach(campo => {
+      form.get(campo).markAsDirty();
+      form.get(campo).markAsTouched();
+    });
+  }
+
+  static markFormUnTouched(form: FormGroup) {
+    // marca os campos como tocados para exibir mensagens de validação
+    Object.keys(form.controls).forEach(campo => {
+      form.get(campo).markAsPristine();
+      form.get(campo).markAsUntouched();
+    });
+  }
+
+  static markFormDisabled(form: FormGroup) {
+    // desabilita todos os campos do formulário
+    Object.keys(form.controls).forEach(campo => {
+      form.get(campo).disable();
+    });
+  }
+
+  static markFormEnabled(form: FormGroup) {
+    // habilita todos os campos do formulário
+    Object.keys(form.controls).forEach(campo => {
+      form.get(campo).enable();
+    });
   }
 }

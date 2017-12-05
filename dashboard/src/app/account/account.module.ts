@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 // modules
 import { SharedModule } from '../shared/shared.module';
@@ -13,6 +14,7 @@ import { RecuperarAcessoComponent } from './recuperar-acesso/recuperar-acesso.co
 
 @NgModule({
   imports: [
+    CommonModule,
     AccountRouting,
     SharedModule,
   ],

@@ -68,8 +68,14 @@
           <td>{{ sla?.sla }}</td>
           <td>{{ sla?.inicioDaVigencia }}</td>
           <td>{{ sla?.finalDaVigencia }}</td>
-          <td></td>
-          <td></td>
+          <td>
+            <a [routerLink]="['editar/', sla?.idsla]" *ngIf="sla?.status == 'novo'">
+              <i class="glyphicon glyphicon-pencil"></i>
+            </a>
+          </td>
+          <td>
+            <a [routerLink]="['detalhe/', sla?.idsla]">Detalhe</a>
+          </td>
         </tr>
       </tbody>
     </table>

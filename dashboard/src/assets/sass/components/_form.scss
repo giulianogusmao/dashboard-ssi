@@ -28,6 +28,13 @@ input, textarea {
     input[type="radio"] {
       margin-top: -$label-padding-top;
     }
+
+    @media screen and (max-width: $screen-xs-max) {
+      display: block;
+      margin: 0;
+      padding-top: .5rem;
+      min-height: 3.5rem;
+    }
   }
 
   @media screen and (max-width: $screen-sm-max){

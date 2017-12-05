@@ -1,6 +1,7 @@
 // Observable class extensions
-// import 'rxjs/add/observable/of';
-// import 'rxjs/BehaviorSubject';
+import 'rxjs/add/observable/of';
+import 'rxjs/BehaviorSubject';
+import 'rxjs/Subject';
 
 // Observable operators
 import 'rxjs/add/operator/map';

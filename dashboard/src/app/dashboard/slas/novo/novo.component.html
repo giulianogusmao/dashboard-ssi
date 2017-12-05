@@ -1,61 +1,97 @@
 <div class="section-page">
 
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="form-horizontal">
-        <p class="text-right">Observação: Os campos com * são de preenchimento obrigatório.</p>
-        <br>
+    <div class="col-md-8 col-md-offset-2">
+      <form class="form-horizontal" [formGroup]="form" (submit)="salvar($event)">
+        <p class="text-right"><em>Os campos com <span class="text-danger">*</span> são de preenchimento obrigatório.</em></p>
 
-        <div class="form-group">
-          <label class="col-md-2 control-label">Área:</label>
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('area') }">
+          <label class="col-md-2 control-label" for="area">Área:</label>
           <div class="col-md-10">
-            <select class="form-control">
-              <option value="">Selecione uma Área</option>
+            <select id="area" class="form-control" formControlName="area">
+              <option *ngFor="let area of areas; trackBy: trackByIdArea" value="{{ area?.idarea }}">{{ area?.area }}</option>
             </select>
+            <span class="help-block" *ngIf="fieldIsInvalid('area')">Selecione uma área requisitada.</span>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-2 control-label">Complexidade:</label>
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('complexidade') }">
+          <label class="col-md-2 control-label" for="complexidade">Complexidade:</label>
           <div class="col-md-10">
-            <select class="form-control">
-              <option value="">Selecione o nível de complexidade</option>
+            <select id="complexidade" class="form-control" formControlName="complexidade">
+              <option *ngFor="let complexidade of complexidades; trackBy: trackByIdComplexidade" value="{{ complexidade?.id }}">{{ complexidade?.label }}</option>
             </select>
+            <span class="help-block" *ngIf="fieldIsInvalid('complexidade')">Selecione o nível de complexidade do SLA.</span>
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('sla') }">
+          <label class="col-md-2 control-label" for="sla">SLA:</label>
+          <div class="col-md-10">
+            <div class="input-group">
+              <input type="number" id="sla" placeholder="Informe um SLA" class="form-control" formControlName="sla">
+              <span class="input-group-addon input-group-addon-telefonica">dia(s)</span>
+            </div>
+            <span class="help-block" *ngIf="fieldIsRequired('sla')">Informe a quantidade de dias de um SLA.</span>
+            <span class="help-block" *ngIf="form.get('sla')?.errors?.range && fieldIsInvalid('sla')">Informe um número entre {{ slaMin }} e {{ slaMax }}</span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('prioridade') }">
           <label class="col-md-2 control-label">Prioridade:</label>
           <div class="col-md-10">
             <div class="radio radio-inline">
-              <input type="radio" id="urgente" name="prioridade" value="urgente">
-              <label for="urgente">Urgente</label>
-              <div class="check"></div>
+              <label>
+                <input type="radio" formControlName="prioridade" value="Urgente">
+                <div class="check"></div>
+                Urgente
+              </label>
             </div>
 
             <div class="radio radio-inline">
-              <input type="radio" id="naourgente" name="prioridade" value="nao-urgente">
-              <label for="naourgente">Não-Urgente</label>
-              <div class="check"></div>
+              <label>
+                <input type="radio" formControlName="prioridade" value="Não Urgente">
+                <div class="check"></div>
+                Não Urgente
+              </label>
             </div>
+            <span class="help-block" *ngIf="fieldIsInvalid('prioridade')">Selecione a prioridade do SLA.</span>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-2 control-label">SLA:</label>
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('status') }">
+          <label class="col-md-2 control-label">Status:</label>
           <div class="col-md-10">
-            <div class="input-group">
-              <input type="text" placeholder="Informe um SLA" class="form-control">
-              <span class="input-group-addon">dia(s)</span>
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" formControlName="status" value="novo">
+                <div class="check"></div>
+                Novo
+              </label>
             </div>
+
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" formControlName="status" value="aguardando aprovação">
+                <div class="check"></div>
+                Aguardando aprovação
+              </label>
+            </div>
+            <span class="help-block" *ngIf="fieldIsInvalid('status')">Selecione a status do SLA.</span>
+            <p class="alert alert-info" *ngIf="statusMsgAlert" [innerHtml]="statusMsgAlert"></p>
           </div>
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn btn-telefonica btn-primary mw-4">Cadastrar</button>
+          <button type="button" class="btn btn-telefonica btn-default" [disabled]="btnCadastrar?.loading || form.pristine" (click)="formReset()" *ngIf="!sla?.idsla">Limpar</button>
+          <button type="submit" class="btn btn-telefonica btn-primary mw-4" [ngClass]="{ 'linha-loading linha-loading-bottom linha-loading-black-alpha': btnCadastrar?.loading }" [disabled]="btnCadastrar?.loading">
+            {{ btnCadastrar?.loading ? btnCadastrar?.labelLoading : btnCadastrar?.label }}
+          </button>
         </div>
-      </div>
-    </div><!-- end col -->
-  </div><!-- end row -->
+      </form>
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
 
 </div>

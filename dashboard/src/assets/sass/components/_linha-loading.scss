@@ -7,30 +7,56 @@
         display: block;
         width: 100%;
         left: 0%;
-        height: 2px;
+        height: .2rem;
         z-index: 2;
         background-color: $cor-default;
         animation: linha-loading-left-to-right 1s linear infinite;
     }
 
     &:not(.linha-loading-bottom):after {
-        top: 0;
+        top: .1rem;
     }
 
     &.linha-loading-bottom:after {
-        bottom: 0;
+        bottom: .1rem;
     }
 
-    &.linha-loading-white:after {
-        background-color: #FFFFFF;
+    @each $name, $color in (
+      ('white', white),
+      ('black', black),
+      ('blue-10', $cor-blue-10),
+      ('blue-9', $cor-blue-9),
+      ('blue-8', $cor-blue-8),
+      ('blue-7', $cor-blue-7),
+      ('blue-6', $cor-blue-6),
+      ('blue-5', $cor-blue-5),
+      ('blue-4', $cor-blue-4),
+      ('blue-3', $cor-blue-3),
+      ('blue-2', $cor-blue-2),
+      ('blue-1', $cor-blue-1),
+      ('black-900', $cor-black-900),
+      ('black-800', $cor-black-800),
+      ('black-700', $cor-black-700),
+      ('black-600', $cor-black-600),
+      ('black-500', $cor-black-500),
+      ('black-400', $cor-black-400),
+      ('black-300', $cor-black-300),
+      ('black-200', $cor-black-200),
+      ('black-100', $cor-black-100),
+      ('black-50', $cor-black-50),
+      ('black-0', $cor-black-0),
+    ) {
+      &.linha-loading-#{$name}:after {
+          background-color: #{$color};
+      }
     }
 
-    &.linha-loading-black:after {
-        background-color: $cor-black-500;
+    &.linha-loading-black-alpha:after {
+        background-color: rgba(black, .3);
     }
 
-    &.linha-loading-default:after {
-        background-color: $cor-default;
+    &.linha-loading-large:after {
+        height: .3rem;
     }
 }
 

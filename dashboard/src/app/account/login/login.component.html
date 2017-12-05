@@ -9,7 +9,15 @@
       <input type="password" placeholder="Senha de rede" class="form-control no-border" formControlName="password" />
     </div>
 
-    <button type="submit" class="btn btn-telefonica btn-primary btn-outline text-white mw-3">Entrar</button>
+    <button type="submit" class="btn btn-telefonica btn-primary btn-outline text-white mw-3" [ngClass]="{'linha-loading linha-loading-bottom': aguardando}">
+      {{ aguardando ? 'Entrando...' : 'Entrar' }}
+    </button>
+
+    <!-- <div class="text-center" *ngIf="message">
+      <p class="toast mt-5">{{ message }}</p>
+    </div> -->
+
+    <app-alert></app-alert>
 
   </form>
 

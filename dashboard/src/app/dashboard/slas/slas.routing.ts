@@ -11,6 +11,8 @@ const routes: Routes = [
     component: SlasComponent,
     children: [
       { path: '', component: ListaComponent },
+      { path: 'editar/:id', component: NovoComponent },
+      { path: 'detalhe/:id', component: NovoComponent },
       { path: 'novo', component: NovoComponent }
     ]
   }

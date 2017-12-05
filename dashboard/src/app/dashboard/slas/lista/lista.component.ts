@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ISla } from './../_models/index';
 import { Subscription } from 'rxjs/Subscription';
+import { SlasSevices } from '../_services/index';
 
 @Component({
   selector: 'app-lista',
@@ -30,7 +31,8 @@ export class ListaComponent implements OnInit {
   private _filter: string = null;
 
   constructor(
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _slaService: SlasSevices,
   ) { }
 
   ngOnInit() {
@@ -42,8 +44,6 @@ export class ListaComponent implements OnInit {
       buscar: '',
       coluna: '',
     });
-
-    this.buscar();
   }
 
   buscar() {
@@ -75,56 +75,37 @@ export class ListaComponent implements OnInit {
 
       if (column) {
         try {
-        return sla[column].toString().toLocaleLowerCase().indexOf(filterBy) !== -1;
+          return sla[column].toString().toLocaleLowerCase().indexOf(filterBy) !== -1;
         } catch (e) {
           console.error(`Coluna ${column} não existe na lista de SLAs`);
           return false;
         }
       } else {
-        let exists = false;
+        try {
+          let exists = false;
 
-        Object.keys(sla).forEach(key => {
-          if (sla[key].toString().toLocaleLowerCase().indexOf(filterBy) !== -1) {
-            exists = true;
-          }
-        });
+          Object.keys(sla).forEach(key => {
+            if (sla[key].toString().toLocaleLowerCase().indexOf(filterBy) !== -1) {
+              exists = true;
+            }
+          });
 
-        return exists;
+          return exists;
+        } catch (e) {
+          return true;
+        }
       }
     });
-
-    // sla.area.toLocaleLowerCase().indexOf(filterBy) !== -1
 
     return result;
   }
 
   private _loadLista() {
-    this._slas = [
-      <ISla>{
-        idsla: 'asdfas123',
-        ativo: true,
-        status: 'novo',
-        sla: 15,
-        prioridade: 'Urgente',
-        complexidade: 'Baixa',
-        inicioDaVigencia: '01/09/2017',
-        finalDaVigencia: '',
-        area: 'Diretoria de Redes',
-        siglaArea: 'DR',
-      },
-      <ISla>{
-        idsla: '5423454',
-        ativo: false,
-        status: 'aguardando aprovação',
-        sla: 15,
-        prioridade: 'Não urgente',
-        complexidade: 'Alta',
-        inicioDaVigencia: '15/09/2017',
-        finalDaVigencia: '30/09/2017',
-        area: 'Diretoria de Redes',
-        siglaArea: 'DR',
-      }
-    ];
+    this._slaService.Listar()
+      .subscribe(slas => {
+        this._slas = slas;
+        this.buscar();
+      });
   }
 
   trackById(index, sla: ISla) {

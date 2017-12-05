@@ -7,6 +7,7 @@ export interface ISla {
   complexidade: string;
   inicioDaVigencia: string;
   finalDaVigencia: string;
+  idarea: string;
   area: string;
   siglaArea: string;
 }
