@@ -1,0 +1,59 @@
+<div class="form-horizontal">
+
+  <div class="form-group group-ativo">
+    <label class="col-md-2 control-label">Ativo: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.Ativo ? 'Sim' : 'Não' }}</p>
+    </div>
+  </div>
+
+  <div class="form-group group-nomearea">
+    <label class="col-md-2 control-label">Área: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.NomeArea }}</p>
+    </div>
+  </div>
+
+  <div class="form-group group-complexidade">
+    <label class="col-md-2 control-label">Complexidade: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.Complexidade }}</p>
+    </div>
+  </div>
+
+  <div class="form-group group-prioridade">
+    <label class="col-md-2 control-label">Prioridade: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.Prioridade }}</p>
+    </div>
+  </div>
+
+  <div class="form-group group-sla">
+    <label class="col-md-2 control-label">SLA: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.SLA }} DIA(S)</p>
+    </div>
+  </div>
+
+  <div class="form-group group-status">
+    <label class="col-md-2 control-label">Status: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.Status }}</p>
+    </div>
+  </div>
+
+  <div class="form-group group-iniciovigencia">
+    <label class="col-md-2 control-label">Inicio da Vigência: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.InicioVigencia }}</p>
+    </div>
+  </div>
+
+  <div class="form-group group-fimvigencia">
+    <label class="col-md-2 control-label">Fim da Vigência: </label>
+    <div class="col-md-10">
+      <p class="form-control-static">{{ sla?.FimVigencia }}</p>
+    </div>
+  </div>
+
+</div>

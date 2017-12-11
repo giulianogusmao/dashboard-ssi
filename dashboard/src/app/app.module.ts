@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // modules
 import { SharedModule } from './shared/shared.module';
@@ -15,6 +16,7 @@ import { AppRouting } from './app.routing';
 
 // services
 import { AuthService } from './_services/index';
+import { AuthInterceptor } from './_interceptors/index';
 
 // components
 import { AppComponent } from './app.component';
@@ -27,13 +29,19 @@ import { AppComponent } from './app.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    HttpClientModule,
     SharedModule,
     AppRouting,
     AccountModule,
   ],
   providers: [
-    AuthenticateGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
     AuthService,
+    AuthenticateGuard,
   ],
   bootstrap: [AppComponent]
 })

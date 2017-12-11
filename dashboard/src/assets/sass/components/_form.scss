@@ -15,7 +15,7 @@ input, textarea {
 }
 
 .form-horizontal {
-  .control-label {
+  .control-label, .form-control-static {
     padding-top: $label-padding-top;
     padding-right: 0;
     margin-bottom: .5rem;

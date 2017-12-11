@@ -1,36 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { IArea } from '../_models/index';
-import { Helper } from '../../../_helpers/index';
-import { AuthService } from './../../../_services/index';
+import { ISelect } from './../_models/index';
+import { AuthService } from '../../../_services/index';
 
 @Injectable()
-export class AreasSevices {
+export class AreasService {
 
-  private _list: IArea[] = [];
-  private _observableList: BehaviorSubject<IArea[]> = new BehaviorSubject([]);
+  private _lista: ISelect[] = [];
+  private _subjectLista = new BehaviorSubject<ISelect[]>(this._lista);
 
   constructor(
-    private _http: Http,
-    private _authService: AuthService
-  ) { }
-
-  getAll(): Observable<IArea[]> {
-    return this._http
-      .get(Helper.apiUrl('/areas'), this._authService.getHeader())
-      .map(Helper.extractData)
-      .do((slas: IArea[]) => {
-        this._list = slas;
-        this._observableList.next(this._list);
-        return this.list;
-      })
-      .catch(Helper.handleError);
+    private _authService: AuthService,
+  ) {
+    this._load();
   }
 
-  get list(): Observable<IArea[]> {
-    return this._observableList.asObservable();
+  private _load() {
+    this._authService.user.subscribe(usuario => {
+      try {
+      usuario.areas.forEach(area => {
+          this._lista.push(<ISelect>{ Id: area.ID, Descricao: area.Nome });
+        });
+
+        this._subjectLista.next(this._lista);
+      } catch (e) { }
+    });
   }
+
+  get list(): Observable<ISelect[]> {
+    return this._subjectLista.asObservable();
+  }
+
+  // getById(id: string): ISelect[] {
+  //   return this._lista.filter(item =>
+  //       item.id.toString() === id.toString()
+  //     );
+  // }
 }

@@ -14,3 +14,4 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 // import 'rxjs/add/operator/distinctUntilChanged';
 // import 'rxjs/add/operator/shareReplay';
+import 'rxjs/add/observable/forkJoin';

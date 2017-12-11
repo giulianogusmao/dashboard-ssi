@@ -1,31 +1,34 @@
+import { IArea } from './area.interface';
+
 export class User {
 
   private _primeiroNome: string;
   private _ultimoNome: string;
 
   constructor(
-    private _nome: string,
-    private _perfil: string,
-    private _login: string,
-    private _token: string,
+    private _id?: number,
+    private _nome?: string,
+    private _tipoUsuario?: string,
+    private _areas?: IArea[],
   ) {
-    this.separaNome(this.nome);
+    this._nome = _nome ? _nome.toLocaleLowerCase() : '';
+    this._separaNome(this.nome);
   }
 
-  get token() {
-    return this._token;
+  get id() {
+    return this._id;
   }
 
   get nome() {
     return this._nome;
   }
 
-  get perfil() {
-    return this._perfil;
+  get tipoUsuario() {
+    return this._tipoUsuario;
   }
 
-  get login() {
-    return this._login;
+  get areas() {
+    return this._areas;
   }
 
   get primeiroNome() {
@@ -40,7 +43,7 @@ export class User {
     return `${this.primeiroNome} ${this.ultimoNome}`;
   }
 
-  separaNome(nome: string) {
+  private _separaNome(nome: string) {
     try {
       const arrayNome = this.nome.split(' ');
       this._primeiroNome = arrayNome[0];
@@ -51,12 +54,27 @@ export class User {
     } catch (e) { }
   }
 
-  toString() {
+  canEdit(): boolean {
+    if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
+      return true;
+    }
+
+    return false;
+  }
+
+  canAprove(): boolean {
+    if (this.tipoUsuario.toLocaleLowerCase() === 'gestor') {
+      return true;
+    }
+
+    return false;
+  }
+
+  toString(): string {
     return JSON.stringify({
+      'id': this.id,
       'nome': this.nome,
-      'perfil': this.perfil,
-      'login': this.login,
-      'token': this.token,
+      'tipoUsuario': this.tipoUsuario,
     });
   }
 }

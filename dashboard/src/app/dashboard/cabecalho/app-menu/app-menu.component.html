@@ -2,9 +2,11 @@
   <nav class="container-fluid">
     <ul class="pull-left">
       <li *ngIf="msgMenu">{{ msgMenu }}</li>
-      <li routerLinkActive="active" *ngFor="let item of menu">
-        <a routerLink="{{ routerMain + item.link }}">{{ item.label }}</a>
-      </li>
+      <ng-template ngFor let-item [ngForOf]="menu">
+        <li routerLinkActive="active" *ngIf="item.isVisible">
+          <a routerLink="{{ routerMain + item.link }}">{{ item.label }}</a>
+        </li>
+      </ng-template>
     </ul>
 
     <ul class="pull-right menu-right">

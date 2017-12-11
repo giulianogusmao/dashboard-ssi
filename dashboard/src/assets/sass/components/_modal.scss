@@ -1,0 +1,48 @@
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.modal-content {
+  border-radius: 0 !important;
+
+  .modal-header, .modal-footer {
+    border-color: transparent;
+  }
+
+  .modal-header {
+    color: $cor-black-900;
+
+    .close {
+      background-image: url('#{$url-path-image}/btn-close.png');
+      background-repeat: no-repeat;
+      background-position: center center;
+      width: 2rem;
+      height: 2rem;
+      opacity: .8;
+
+      span {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .modal-body {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
+}

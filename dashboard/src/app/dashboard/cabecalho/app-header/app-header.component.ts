@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { AuthService } from '../../../_services/index';
 import { User } from '../../../_models/index';
@@ -7,9 +9,10 @@ import { User } from '../../../_models/index';
   selector: 'app-header',
   templateUrl: 'app-header.component.html',
 })
-export class AppHeaderComponent implements OnInit {
+export class AppHeaderComponent implements OnInit, OnDestroy {
 
-  private usuario: User;
+  usuario: User;
+  private _inscricoes: Subscription[] = [];
   @Input() routerMain;
 
   constructor(
@@ -17,6 +20,14 @@ export class AppHeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usuario = this._authService.user;
+    this._inscricoes.push(this._authService.user.subscribe(
+      user => this.usuario = user
+    ));
+  }
+
+  ngOnDestroy() {
+    try {
+      this._inscricoes.forEach(inscricao => inscricao.unsubscribe());
+    } catch (e) { }
   }
 }

@@ -1,0 +1,19 @@
+<div class="expandir-detalhe" [ngClass]="{'expandir': expandir}">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideConfirmationModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-detalhe [sla]="body" class="expandir-box"></app-detalhe>
+  </div>
+  <div class="modal-footer">
+    <a href="javascript:void(0)" class="pull-left btn btn-telefonica btn-link expandir-text" (click)="toggleExpandir()">
+      {{ expandir ? 'Ocultar' : 'Expandir' }} Detalhe
+      <span class="caret"></span>
+    </a>
+    <button type="button" class="btn btn-telefonica btn-default" (click)="onCancel()">Cancelar</button>
+    <button type="button" class="btn btn-telefonica btn-primary mw-3" (click)="onConfirm()">Aprovar</button>
+  </div>
+</div>

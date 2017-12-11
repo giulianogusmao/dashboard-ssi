@@ -1,89 +1,99 @@
-<div class="mb-5">
-  <div class="row">
-    <div class="col-sm-12">
+<div class="page-lista-slas">
+  <div class="mb-5">
+    <div class="row">
+      <div class="col-sm-12">
 
-      <form class="input-group no-border" [formGroup]="form" (ngSubmit)="buscar()">
-        <span class="input-group-btn">
-          <select tooltip="Pesquisar por coluna" formControlName="coluna">
-            <option value="" selected>Todos</option>
-            <option *ngFor="let column of columns" [value]="column.value">{{ column?.label }}</option>
-          </select>
-        </span>
+        <form class="input-group no-border" [formGroup]="form" (ngSubmit)="buscar()">
+          <span class="input-group-btn">
+            <select tooltip="Pesquisar por coluna" formControlName="coluna">
+              <option value="" selected>Todos</option>
+              <option *ngFor="let column of columns" [value]="column.value">{{ column?.label }}</option>
+            </select>
+          </span>
 
-        <input type="text" placeholder="Pesquisar SLAs" class="form-control" formControlName="buscar">
+          <input type="text" placeholder="Pesquisar SLAs" class="form-control" formControlName="buscar">
 
-        <span class="input-group-btn">
-          <button class="btn btn-telefonica btn-default btn-fechar" type="button" aria-label="Limpar Busca" tooltip="Limpar Busca"
-            (click)="reset()" *ngIf="form.get('buscar').value">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <span class="input-group-btn">
+            <button class="btn btn-telefonica btn-default btn-fechar" type="button" aria-label="Limpar Busca" tooltip="Limpar Busca"
+              (click)="reset()" *ngIf="form.get('buscar').value">
+              <span aria-hidden="true">&times;</span>
+            </button>
 
-          <button class="btn btn-telefonica btn-default" type="button" aria-label="Buscar" tooltip="Buscar" (click)="buscar()">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
+            <button class="btn btn-telefonica btn-default" type="button" aria-label="Buscar" tooltip="Buscar" (click)="buscar()">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
 
-          <button class="btn btn-telefonica btn-default ml-1 hide" type="button" aria-label="Filtros Avançados" tooltip="Filtros Avançados">
-            <i class="glyphicon glyphicon-filter"></i>
-          </button>
-        </span>
-      </form>
+            <button class="btn btn-telefonica btn-default ml-1 hide" type="button" aria-label="Filtros Avançados" tooltip="Filtros Avançados">
+              <i class="glyphicon glyphicon-filter"></i>
+            </button>
+          </span>
+        </form>
 
-    </div>
+      </div>
 
-    <div class="col-sm-2 hide">
-      <button class="btn btn-telefonica btn-default btn-block">
-        Listar Todos
-      </button>
-    </div>
-  </div>
-</div>
-<!-- end buscar -->
-
-<div class="section-page mt-5">
-  <div class="table-responsive">
-    <table class="table mb-0" *ngIf="filteredSlas && filteredSlas.length">
-      <thead>
-        <tr>
-          <th>Ativo</th>
-          <th>Status</th>
-          <th>Sigla</th>
-          <th>Área Requisitada</th>
-          <th>Complexidade</th>
-          <th>Prioridade</th>
-          <th>SLA (dias)</th>
-          <th>Início da vigência</th>
-          <th>Final da vigência</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sla of filteredSlas; trackBy: trackById">
-          <td>{{ sla?.ativo }}</td>
-          <td>{{ sla?.status }}</td>
-          <td>{{ sla?.siglaArea }}</td>
-          <td>{{ sla?.area }}</td>
-          <td>{{ sla?.complexidade }}</td>
-          <td>{{ sla?.prioridade }}</td>
-          <td>{{ sla?.sla }}</td>
-          <td>{{ sla?.inicioDaVigencia }}</td>
-          <td>{{ sla?.finalDaVigencia }}</td>
-          <td>
-            <a [routerLink]="['editar/', sla?.idsla]" *ngIf="sla?.status == 'novo'">
-              <i class="glyphicon glyphicon-pencil"></i>
-            </a>
-          </td>
-          <td>
-            <a [routerLink]="['detalhe/', sla?.idsla]">Detalhe</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="text-center text-danger" *ngIf="!filteredSlas.length">
-      Nenhum valor encontrado.
+      <div class="col-sm-2 hide">
+        <button class="btn btn-telefonica btn-default btn-block">
+          Listar Todos
+        </button>
+      </div>
     </div>
   </div>
+  <!-- end buscar -->
 
+  <div class="section-page mt-5">
+    <div class="table-responsive">
+      <table class="table table-hover mb-0" *ngIf="paginationSlas && paginationSlas.length">
+        <thead>
+          <tr>
+            <th class="col-ativo">Ativo</th>
+            <th class="col-status">Status</th>
+            <th class="col-nomeArea">Área</th>
+            <th class="col-complexidade">Complexidade</th>
+            <th class="col-prioridade">Prioridade</th>
+            <th class="col-sLA">SLA (dias)</th>
+            <th class="col-inicioVigencia">Início da vigência</th>
+            <th class="col-fimVigencia">Final da vigência</th>
+            <th class="col-editar" *ngIf="usuario?.canEdit()">Editar</th>
+            <th class="col-aprovar" *ngIf="usuario?.canAprove()">Aprovar / Reprovar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sla of paginationSlas; trackBy: trackById" [ngClass]="{ 'loading': sla.Loading }">
+            <td class="col-ativo" [ngClass]="{ 'ativo': sla?.Ativo }">
+              <app-loading *ngIf="sla?.Loading"></app-loading>
+              <div class="check">
+                <a href="javascript:void(0)" (click)="desativaSLA(sla)" *ngIf="sla?.Ativo" aria-label="Desativar SLA" tooltip="Desativar SLA" placement="auto"></a>
+              </div>
+            </td>
+            <td class="col-status">{{ sla?.Status }}</td>
+            <td class="col-nomeArea">{{ sla?.NomeArea }}</td>
+            <td class="col-complexidade">{{ sla?.Complexidade }}</td>
+            <td class="col-prioridade">{{ sla?.Prioridade }}</td>
+            <td class="col-sLA">{{ sla?.SLA }}</td>
+            <td class="col-inicioVigencia">{{ sla?.InicioVigencia }}</td>
+            <td class="col-fimVigencia">{{ sla?.FimVigencia }}</td>
+            <td class="col-editar" *ngIf="usuario?.canEdit()">
+              <a [routerLink]="['editar/', sla?.IdSla]" *ngIf="sla?.isEditable()" aria-label="Editar SLA" tooltip="Editar SLA" placement="top">
+                <i class="glyphicon glyphicon-pencil"></i>
+              </a>
+            </td>
+            <td class="col-aprovar" *ngIf="usuario?.canAprove()">
+              <app-aprovar-reprovar [sla]="sla" *ngIf="sla.canAprove()"></app-aprovar-reprovar>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="text-center text-danger" *ngIf="msgView">
+        {{ msgView }}
+      </div>
+    </div>
+
+  </div>
+  <!-- end paginationSlas -->
+
+  <div class="text-center" *ngIf="totalItems > itemsPerPage">
+    <pagination [boundaryLinks]="true" [totalItems]="totalItems" [maxSize]="maxSizeNumPages" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage"
+      class="pagination-sm" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" (pageChanged)="pageChanged($event)"></pagination>
+  </div>
 </div>
-<!-- end filteredSlas -->

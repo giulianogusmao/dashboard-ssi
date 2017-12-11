@@ -1,3 +1,3 @@
 export * from './slas.service';
+export * from './parametros.service';
 export * from './areas.service';
-export * from './complexidades.service';

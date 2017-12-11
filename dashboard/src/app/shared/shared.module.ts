@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppBootstrapModule } from './bootstrap/index';
 import { AlertModule } from './alert/index';
 import { NotificationModule } from './notification/index';
+import { ConfirmationModule } from './confirmation/index';
+
+// components
+import { LoadingComponent } from './loading/index';
 
 
 @NgModule({
@@ -16,12 +20,18 @@ import { NotificationModule } from './notification/index';
     ReactiveFormsModule,
     AlertModule,
     NotificationModule,
+    ConfirmationModule,
   ],
   exports: [
     AppBootstrapModule,
     ReactiveFormsModule,
     AlertModule,
     NotificationModule,
+    ConfirmationModule,
+    LoadingComponent,
   ],
+  declarations: [
+    LoadingComponent,
+  ]
 })
 export class SharedModule { }

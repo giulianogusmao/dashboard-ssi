@@ -5,23 +5,23 @@
       <form class="form-horizontal" [formGroup]="form" (submit)="salvar($event)">
         <p class="text-right"><em>Os campos com <span class="text-danger">*</span> são de preenchimento obrigatório.</em></p>
 
-        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('area') }">
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idArea') }">
           <label class="col-md-2 control-label" for="area">Área:</label>
           <div class="col-md-10">
-            <select id="area" class="form-control" formControlName="area">
-              <option *ngFor="let area of areas; trackBy: trackByIdArea" value="{{ area?.idarea }}">{{ area?.area }}</option>
+            <select id="area" class="form-control" formControlName="idArea">
+              <option *ngFor="let area of areas; trackBy: trackById;" value="{{ area?.Id }}">{{ area?.Descricao }}</option>
             </select>
-            <span class="help-block" *ngIf="fieldIsInvalid('area')">Selecione uma área requisitada.</span>
+            <span class="help-block" *ngIf="fieldIsInvalid('idArea')">Selecione uma área.</span>
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('complexidade') }">
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idComplexidade') }">
           <label class="col-md-2 control-label" for="complexidade">Complexidade:</label>
           <div class="col-md-10">
-            <select id="complexidade" class="form-control" formControlName="complexidade">
-              <option *ngFor="let complexidade of complexidades; trackBy: trackByIdComplexidade" value="{{ complexidade?.id }}">{{ complexidade?.label }}</option>
+            <select id="complexidade" class="form-control" formControlName="idComplexidade">
+              <option *ngFor="let complexidade of complexidades; trackBy: trackById;" value="{{ complexidade?.Id }}">{{ complexidade?.Descricao }}</option>
             </select>
-            <span class="help-block" *ngIf="fieldIsInvalid('complexidade')">Selecione o nível de complexidade do SLA.</span>
+            <span class="help-block" *ngIf="fieldIsInvalid('idComplexidade')">Selecione o nível de complexidade do SLA.</span>
           </div>
         </div>
 
@@ -33,58 +33,56 @@
               <span class="input-group-addon input-group-addon-telefonica">dia(s)</span>
             </div>
             <span class="help-block" *ngIf="fieldIsRequired('sla')">Informe a quantidade de dias de um SLA.</span>
-            <span class="help-block" *ngIf="form.get('sla')?.errors?.range && fieldIsInvalid('sla')">Informe um número entre {{ slaMin }} e {{ slaMax }}</span>
+            <span class="help-block" *ngIf="form.get('sla')?.errors?.range && fieldIsInvalid('sla')">Informe um número entre {{ sla.min }} e {{ sla.max }}</span>
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('prioridade') }">
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idPrioridade') }">
           <label class="col-md-2 control-label">Prioridade:</label>
           <div class="col-md-10">
-            <div class="radio radio-inline">
+            <div class="radio radio-inline" *ngFor="let prioridade of prioridades; trackBy: trackById;">
               <label>
-                <input type="radio" formControlName="prioridade" value="Urgente">
+                <input type="radio" formControlName="idPrioridade" [value]="prioridade?.Id">
                 <div class="check"></div>
-                Urgente
+                {{ prioridade?.Descricao }}
               </label>
             </div>
-
-            <div class="radio radio-inline">
-              <label>
-                <input type="radio" formControlName="prioridade" value="Não Urgente">
-                <div class="check"></div>
-                Não Urgente
-              </label>
-            </div>
-            <span class="help-block" *ngIf="fieldIsInvalid('prioridade')">Selecione a prioridade do SLA.</span>
+            <span class="help-block" *ngIf="fieldIsInvalid('idPrioridade')">Selecione a prioridade do SLA.</span>
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('status') }">
+        <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idStatus') }">
           <label class="col-md-2 control-label">Status:</label>
           <div class="col-md-10">
-            <div class="radio radio-inline">
-              <label>
-                <input type="radio" formControlName="status" value="novo">
-                <div class="check"></div>
-                Novo
-              </label>
-            </div>
-
-            <div class="radio radio-inline">
-              <label>
-                <input type="radio" formControlName="status" value="aguardando aprovação">
-                <div class="check"></div>
-                Aguardando aprovação
-              </label>
-            </div>
-            <span class="help-block" *ngIf="fieldIsInvalid('status')">Selecione a status do SLA.</span>
+            <ng-template ngFor let-item [ngForOf]="status" [ngForTrackBy]="trackById">
+              <div class="radio radio-inline" *ngIf="item?.isVisibleOnCreate()">
+                <label>
+                  <input type="radio" formControlName="idStatus" [value]="item?.Id">
+                  <div class="check"></div>
+                  {{ item?.Descricao }}
+                </label>
+              </div>
+            </ng-template>
+            <span class="help-block" *ngIf="fieldIsInvalid('idStatus')">Selecione o status do SLA.</span>
             <p class="alert alert-info" *ngIf="statusMsgAlert" [innerHtml]="statusMsgAlert"></p>
           </div>
         </div>
 
         <div class="text-right">
-          <button type="button" class="btn btn-telefonica btn-default" [disabled]="btnCadastrar?.loading || form.pristine" (click)="formReset()" *ngIf="!sla?.idsla">Limpar</button>
-          <button type="submit" class="btn btn-telefonica btn-primary mw-4" [ngClass]="{ 'linha-loading linha-loading-bottom linha-loading-black-alpha': btnCadastrar?.loading }" [disabled]="btnCadastrar?.loading">
+          <button
+            type="button"
+            class="btn btn-telefonica btn-default"
+            [disabled]="btnCadastrar?.loading || form.pristine"
+            (click)="formReset()"
+            *ngIf="!sla?.idsla && sla?.isEditable() || actionNovo">
+            Limpar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-telefonica btn-primary mw-4"
+            [ngClass]="{ 'linha-loading linha-loading-bottom linha-loading-black-alpha': btnCadastrar?.loading }"
+            [disabled]="btnCadastrar?.loading || btnCadastrar?.disabled"
+            *ngIf="sla?.isEditable() || actionNovo">
             {{ btnCadastrar?.loading ? btnCadastrar?.labelLoading : btnCadastrar?.label }}
           </button>
         </div>

@@ -1,7 +1,8 @@
+import { IArea } from './area.interface';
+
 export interface IUser {
-  id: string;
-  login: string;
-  nome: string;
-  token: string;
-  perfil: string;
+  Id: number;
+  Nome: string;
+  TipoUsuario: string;
+  Areas: IArea[];
 }
