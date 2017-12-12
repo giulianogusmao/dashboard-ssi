@@ -5,7 +5,7 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { Sla } from '../_models/index';
 import { SlasSevices } from './../_services/index';
-import { ModalConfirmationComponent } from './modal-confirmation.component';
+import { ModalAprovarReprovarComponent } from './modal-aprovar-reprovar.component';
 
 @Component({
   selector: 'app-aprovar-reprovar',
@@ -32,12 +32,12 @@ export class AprovarReprovarComponent implements OnDestroy {
   }
 
   public openModalAprovarSLA(): void {
-    const modal = this._bsModalService.show(ModalConfirmationComponent);
-    const bsModalRef = (<ModalConfirmationComponent>modal.content).showConfirmationModal(
+    const modal = this._bsModalService.show(ModalAprovarReprovarComponent);
+    const bsModalRef = (<ModalAprovarReprovarComponent>modal.content).showConfirmationModal(
       'Confirmar aprovar SLA', null, this.sla, true
     );
 
-    this._subscriptions.push((<ModalConfirmationComponent>modal.content).onClose.subscribe(confirm => {
+    this._subscriptions.push((<ModalAprovarReprovarComponent>modal.content).onClose.subscribe(confirm => {
       if (confirm.option === true) {
         this._slasService.aprovarReprovar(this.sla, this.sla.IdAprovar).subscribe(
           response => {
@@ -57,12 +57,12 @@ export class AprovarReprovarComponent implements OnDestroy {
   }
 
   public openModalReprovarSLA(): void {
-    const modal = this._bsModalService.show(ModalConfirmationComponent);
-    const bsModalRef = (<ModalConfirmationComponent>modal.content).showConfirmationModal(
+    const modal = this._bsModalService.show(ModalAprovarReprovarComponent);
+    const bsModalRef = (<ModalAprovarReprovarComponent>modal.content).showConfirmationModal(
       'Confirmar reprovar SLA', null, this.sla, false
     );
 
-    this._subscriptions.push((<ModalConfirmationComponent>modal.content).onClose.subscribe(confirm => {
+    this._subscriptions.push((<ModalAprovarReprovarComponent>modal.content).onClose.subscribe(confirm => {
       if (confirm.option === true) {
         this._slasService.aprovarReprovar(this.sla, this.sla.IdReprovar, confirm.justificativa).subscribe(
           response => {

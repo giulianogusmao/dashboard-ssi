@@ -1,2 +1,2 @@
 export * from './aprovar-reprovar.component';
-export * from './modal-confirmation.component';
+export * from './modal-aprovar-reprovar.component';

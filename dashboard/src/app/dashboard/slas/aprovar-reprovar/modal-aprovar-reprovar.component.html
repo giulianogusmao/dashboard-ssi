@@ -9,8 +9,8 @@
     <p class="text-center" *ngIf="subtitle">{{ subtitle }}</p>
     <app-detalhe [sla]="body" class="expandir-box"></app-detalhe>
 
-    <form [formGroup]="form" *ngIf="!aprovar">
-      <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid(form, 'justificativa') }">
+    <form class="form-horizontal" [formGroup]="form" *ngIf="!aprovar">
+      <div class="form-group mb-0 mt-2" [ngClass]="{'has-error': fieldIsInvalid(form, 'justificativa') }">
         <label class="col-md-2 control-label" for="justificativa">Justificativa:</label>
         <div class="col-md-10">
           <input type="text" id="justificativa" class="form-control" formControlName="justificativa" placeholder="Informe a justificativa da reprovação">

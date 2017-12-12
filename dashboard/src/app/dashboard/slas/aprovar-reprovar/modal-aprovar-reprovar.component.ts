@@ -5,10 +5,10 @@ import { FormGroup, FormBuilder , Validators } from '@angular/forms';
 import { Helper, FormHelper } from '../../../_helpers/index';
 
 @Component({
-  selector: 'app-modal-aprovar',
-  templateUrl: './modal-aprovar.component.html',
+  selector: 'app-modal-aprovar-reprovar',
+  templateUrl: './modal-aprovar-reprovar.component.html',
 })
-export class ModalConfirmationComponent extends FormHelper implements OnInit {
+export class ModalAprovarReprovarComponent extends FormHelper implements OnInit {
   public aprovar: boolean;
   public active: boolean;
   public body: any;

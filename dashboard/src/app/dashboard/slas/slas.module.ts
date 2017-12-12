@@ -24,7 +24,7 @@ import { NovoComponent } from './novo/index';
 import { DetalheComponent } from './detalhe/index';
 import {
   AprovarReprovarComponent,
-  ModalConfirmationComponent,
+  ModalAprovarReprovarComponent,
 } from './aprovar-reprovar/index';
 
 @NgModule({
@@ -41,10 +41,10 @@ import {
     NovoComponent,
     DetalheComponent,
     AprovarReprovarComponent,
-    ModalConfirmationComponent,
+    ModalAprovarReprovarComponent,
   ],
   entryComponents: [
-    ModalConfirmationComponent,
+    ModalAprovarReprovarComponent,
   ],
   providers: [
     {
