@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './../../shared/shared.module';
 
 // routing
+import { InsertGuard, EditGuard, ListGuard } from './_guards/index';
 import { SlasRouting } from './slas.routing';
 
 // services
@@ -55,6 +56,9 @@ import {
     SlasSevices,
     AreasService,
     ParametrosSevices,
+    InsertGuard,
+    EditGuard,
+    ListGuard,
   ]
 })
 export class SlasModule { }

@@ -54,33 +54,65 @@ export class User {
     } catch (e) { }
   }
 
-  canDisable(): boolean {
-    if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
-      return true;
-    }
-
-    return false;
-  }
-
-  canEnable(): boolean {
-    if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
-      return true;
-    }
-
-    return false;
+  canList(): boolean {
+    return this._validAccess([
+      'administrador',
+      'gestor',
+      'suporte',
+      'generico',
+    ]);
   }
 
   canEdit(): boolean {
-    if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
-      return true;
-    }
+    return this._validAccess([
+      'administrador',
+      // 'gestor',
+      // 'suporte',
+      // 'generico',
+    ]);
+  }
 
-    return false;
+  canInsert(): boolean {
+    return this._validAccess([
+      'administrador',
+      // 'gestor',
+      // 'suporte',
+      // 'generico',
+    ]);
+  }
+
+  canDisable(): boolean {
+    return this._validAccess([
+      'administrador',
+      // 'gestor',
+      // 'suporte',
+      // 'generico',
+    ]);
+  }
+
+  canEnable(): boolean {
+    return this._validAccess([
+      'administrador',
+      // 'gestor',
+      // 'suporte',
+      // 'generico',
+    ]);
   }
 
   canAprove(): boolean {
-    if (this.tipoUsuario.toLocaleLowerCase() === 'gestor') {
-      return true;
+    return this._validAccess([
+      // 'administrador',
+      'gestor',
+      // 'suporte',
+      // 'generico',
+    ]);
+  }
+
+  private _validAccess(perfis: Array<string>): boolean {
+    if (this.tipoUsuario) {
+      if (perfis.indexOf(this.tipoUsuario.toLowerCase()) > -1) {
+        return true;
+      }
     }
 
     return false;

@@ -14,10 +14,10 @@ export class MenuService {
 
   constructor() {
     this._lista = [
-      new Menu('Home'),
-      new Menu('Listar SLAs', '/slas'),
-      new Menu('Cadastrar SLA', '/slas/novo', ['administrador']),
-      new Menu('Editar SLA', '/slas/editar', [], false),
+      new Menu('Dashboard'),
+      new Menu('SLAs', '/slas'),
+      // new Menu('Cadastrar SLA', '/slas/novo', ['administrador']),
+      // new Menu('Editar SLA', '/slas/editar', [], false),
     ];
   }
 

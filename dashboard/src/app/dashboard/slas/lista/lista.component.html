@@ -1,5 +1,13 @@
 <div class="page-lista-slas">
-  <div class="mb-5">
+  <div class="page-header">
+    <div class="title">SLA <small>- Listar</small></div>
+
+    <div class="right" *ngIf="usuario.canInsert()">
+      <button type="button" class="btn btn-primary btn-telefonica pull-right" routerLink="novo">Cadastrar</button>
+    </div>
+  </div>
+
+  <div>
     <div class="row">
       <div class="col-sm-12">
 
@@ -40,7 +48,7 @@
   </div>
   <!-- end buscar -->
 
-  <div class="section-page mt-5">
+  <div class="section-page mt-3">
     <div class="table-responsive">
       <table class="table table-hover mb-0" *ngIf="paginationSlas && paginationSlas.length">
         <thead>
@@ -62,8 +70,10 @@
             <td class="col-ativo" [ngClass]="{ 'ativo': sla?.Ativo, 'inativo': !sla?.Ativo, 'can-disable': usuario?.canDisable(), 'can-enable': usuario?.canEnable() }">
               <app-loading *ngIf="sla?.Loading"></app-loading>
               <div class="check">
-                <a href="javascript:void(0)" (click)="desativaSLA(sla)" *ngIf="sla?.Ativo && usuario.canDisable()" aria-label="Desativar SLA" tooltip="Desativar SLA" placement="top"></a>
-                <a href="javascript:void(0)" (click)="ativaSLA(sla)" *ngIf="!sla?.Ativo && usuario.canEnable()" aria-label="Ativar SLA" tooltip="Ativar SLA" placement="top"></a>
+                <a href="javascript:void(0)" (click)="desativaSLA(sla)" *ngIf="sla?.Ativo && usuario.canDisable()" aria-label="Desativar SLA"
+                  tooltip="Desativar SLA" placement="top"></a>
+                <a href="javascript:void(0)" (click)="ativaSLA(sla)" *ngIf="!sla?.Ativo && usuario.canEnable()" aria-label="Ativar SLA" tooltip="Ativar SLA"
+                  placement="top"></a>
               </div>
             </td>
             <td class="col-status">{{ sla?.Status }}</td>

@@ -183,7 +183,6 @@ export class ListaComponent implements OnInit, OnDestroy {
   }
 
   loadList() {
-    console.log('load');
     this.paginationSlas = [];
     this.filteredSlas = [];
     this._slas = [];

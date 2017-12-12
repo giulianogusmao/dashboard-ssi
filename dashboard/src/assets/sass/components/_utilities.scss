@@ -60,3 +60,15 @@ $spacer: .5rem;
 .no-border{
   border-color: transparent !important;
 }
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+
+  &.space-between {
+    justify-content: space-between;
+  }
+}

@@ -185,7 +185,30 @@ body {
   .section-page {
     padding: 2rem;
     background-color: #ffffff;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem 0;
+  }
+
+  .page-header {
+    margin: 1.5rem 0 1rem;
+    padding: 0;
+    border: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      margin: 0;
+      font-size: 3rem;
+
+      small {
+        color: $cor-black-700;
+        font-size: 1.8rem;
+      }
+    }
+
+    .btn {
+      min-height: 3rem;
+    }
   }
 }// fim .painel
 
