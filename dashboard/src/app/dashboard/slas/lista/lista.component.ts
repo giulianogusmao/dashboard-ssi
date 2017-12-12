@@ -68,7 +68,7 @@ export class ListaComponent implements OnInit, OnDestroy {
     });
 
     // carrega slas
-    this._loadLista();
+    this.loadList();
   }
 
   desativaSLA(sla: Sla) {
@@ -158,14 +158,18 @@ export class ListaComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private _loadLista() {
+  loadList() {
+    console.log('load');
+    this.paginationSlas = [];
+    this.filteredSlas = [];
+    this._slas = [];
+    this.setPage(1);
+
     this.msgView = 'Carregando SLAs...';
 
     this._inscricoes.push(this._slaService.getAll()
       .subscribe(slas => {
-        if (!slas.length) {
-          this.msgView = 'Lista vazia';
-        } else {
+        if (slas.length) {
           this.msgView = '';
           this._slas = slas;
           this.buscar();

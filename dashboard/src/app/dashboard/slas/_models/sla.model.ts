@@ -13,7 +13,7 @@ export class Sla implements ISla {
   CanEdit: boolean;
   CanAprove: boolean;
   Ativo: boolean;
-  MotivoRecusa: string;
+  MotivoRecusa?: string;
 
   Loading: boolean;
 
@@ -41,6 +41,14 @@ export class Sla implements ISla {
     return 50;
   }
 
+  get IdAprovar(): number {
+    return 3;
+  }
+
+  get IdReprovar(): number {
+    return 4;
+  }
+
   isEditable(): boolean {
     // somente slas com status novo podem ser editados
     return this.Ativo && (this.Status === 'NOVO' || this.CanEdit);
@@ -57,5 +65,14 @@ export class Sla implements ISla {
   desativa(): boolean {
     this.Ativo = false;
     return this.Ativo;
+  }
+
+  aprovar() {
+    this.Status = 'APROVADO';
+  }
+
+  reprovar(justificativa: string) {
+    this.Status = 'REPROVADO';
+    this.MotivoRecusa = justificativa;
   }
 }

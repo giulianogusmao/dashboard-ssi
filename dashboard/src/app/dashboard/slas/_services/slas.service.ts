@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Sla, ISla, IAtivaInativa } from '../_models/index';
+import { Sla, ISla, ISlaEdit, IAtivaInativa } from '../_models/index';
 import { Helper } from '../../../_helpers/index';
 import { AuthService } from './../../../_services/index';
 
@@ -83,7 +83,10 @@ export class SlasSevices {
           "MotivoRecusa": null
         }
       ];
-      const subject = new BehaviorSubject<ISla[]>(slas);
+      const subject = new BehaviorSubject<ISla[]>([]);
+      setTimeout(() => {
+        subject.next(slas);
+      }, 1000);
       return subject;
     }
 
@@ -110,25 +113,37 @@ export class SlasSevices {
       .do(() => data);
   }
 
-  aprovarReprovar(sla: Sla, idstatus: number): Observable<any> {
-    const data = <any>{ idsla: sla.IdSla, idStatus: idstatus };
+  aprovarReprovar(sla: Sla, idstatus: number, justificativa: string = null): Observable<any> {
+    const data = <any>{ idsla: sla.IdSla, idStatus: idstatus, MensagemRecusa: justificativa };
 
     if (Helper.useFake) {
+      console.log(data);
       const subject = new BehaviorSubject(data);
       return subject;
     }
 
     return this._httpClient
-      .post<any>(Helper.apiUrl('/sla/AlteraStatus'), data)
-      .do(() => data);
+      .post<any>(Helper.apiUrl('/sla/AlteraStatus'), data);
   }
 
-  // getById(id: string): Observable<ISla> {
-  //   return this._http
-  //     .get(Helper.apiUrl(`/sla/${id}`))
-  //     .map(Helper.extractData)
-  //     .catch(Helper.handleError);
-  // }
+  getById(sla: Sla): Observable<ISlaEdit> {
+    if (Helper.useFake) {
+      const response = new BehaviorSubject<ISlaEdit>({
+        IdSla: 2,
+        idArea: 834,
+        idComplexidade: 2,
+        idPrioridade: 1,
+        idStatus: 1,
+        SLA: 5,
+        Ativo: false,
+        MotivoRecusa: null
+      });
+      return response.asObservable();
+    }
+
+    return this._httpClient
+      .get<ISlaEdit>(Helper.apiUrl(`/sla/RetornaSLA/${sla.IdSla}`));
+  }
 
   get list(): Observable<ISla[]> {
     return this._observableList.asObservable();

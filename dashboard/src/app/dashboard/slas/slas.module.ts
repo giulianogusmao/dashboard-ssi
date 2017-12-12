@@ -24,7 +24,6 @@ import { NovoComponent } from './novo/index';
 import { DetalheComponent } from './detalhe/index';
 import {
   AprovarReprovarComponent,
-  // ModalAprovarComponent,
   ModalConfirmationComponent,
 } from './aprovar-reprovar/index';
 
@@ -43,11 +42,9 @@ import {
     DetalheComponent,
     AprovarReprovarComponent,
     ModalConfirmationComponent,
-    // ModalAprovarComponent,
   ],
   entryComponents: [
     ModalConfirmationComponent,
-    // ModalAprovarComponent,
   ],
   providers: [
     {

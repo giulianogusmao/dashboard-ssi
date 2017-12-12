@@ -78,7 +78,7 @@
               </a>
             </td>
             <td class="col-aprovar" *ngIf="usuario?.canAprove()">
-              <app-aprovar-reprovar [sla]="sla" *ngIf="sla.canAprove()"></app-aprovar-reprovar>
+              <app-aprovar-reprovar [sla]="sla" *ngIf="sla.canAprove()" (refreshList)="loadList($event)"></app-aprovar-reprovar>
             </td>
           </tr>
         </tbody>

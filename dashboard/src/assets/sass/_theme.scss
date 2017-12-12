@@ -262,8 +262,7 @@ body {
   .expandir-box {
     display: block;
     overflow: hidden;
-    height: 15rem;
-    @extend %transition;
+    height: 8rem;
   }
 
   .expandir-text .caret {
@@ -296,10 +295,6 @@ body {
         width: 100%;
         text-align: left;
       }
-    }
-
-    .group-ativo {
-      display: none;
     }
   }
 }

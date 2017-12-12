@@ -6,14 +6,25 @@
     </button>
   </div>
   <div class="modal-body">
+    <p class="text-center" *ngIf="subtitle">{{ subtitle }}</p>
     <app-detalhe [sla]="body" class="expandir-box"></app-detalhe>
+
+    <form [formGroup]="form" *ngIf="!aprovar">
+      <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid(form, 'justificativa') }">
+        <label class="col-md-2 control-label" for="justificativa">Justificativa:</label>
+        <div class="col-md-10">
+          <input type="text" id="justificativa" class="form-control" formControlName="justificativa" placeholder="Informe a justificativa da reprovação">
+          <span class="help-block" *ngIf="fieldIsInvalid(form, 'justificativa')">Informe uma justificativa para reprovar este SLA.</span>
+        </div>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <a href="javascript:void(0)" class="pull-left btn btn-telefonica btn-link expandir-text" (click)="toggleExpandir()">
       {{ expandir ? 'Ocultar' : 'Expandir' }} Detalhe
       <span class="caret"></span>
     </a>
-    <button type="button" class="btn btn-telefonica btn-default" (click)="onCancel()">Cancelar</button>
-    <button type="button" class="btn btn-telefonica btn-primary mw-3" (click)="onConfirm()">Aprovar</button>
+    <button type="button" class="btn btn-telefonica btn-default" [disabled]="!active" (click)="onCancel()">Cancelar</button>
+    <button type="button" class="btn btn-telefonica mw-3" [ngClass]="{ 'btn-primary': aprovar, 'btn-danger': !aprovar }" [disabled]="!active" (click)="onConfirm()">{{ loading ? 'Salvando...' : textButtonConfirm }}</button>
   </div>
 </div>
