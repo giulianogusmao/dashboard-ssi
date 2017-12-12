@@ -79,10 +79,10 @@ export class ListaComponent implements OnInit, OnDestroy {
           if (res.resolved) {
             sla.Loading = true;
             this._slaService
-              .desativa(sla)
+              .toggleAtivaDesativa(sla)
               .subscribe(
                 () => {
-                  sla.desativa();
+                  sla.toggleAtivaDesativa();
                   this._notificationService.success('', 'SLA desativado com sucesso!');
                   sla.Loading = false;
                 },
@@ -93,6 +93,30 @@ export class ListaComponent implements OnInit, OnDestroy {
                 });
           }
         });
+  }
+
+  ativaSLA(sla: Sla) {
+    this._confirmationService
+      .create('Ativar SLA', 'Deseja realmente ativar este SLA?')
+      .subscribe(
+      (res) => {
+        if (res.resolved) {
+          sla.Loading = true;
+          this._slaService
+            .toggleAtivaDesativa(sla)
+            .subscribe(
+            () => {
+              sla.toggleAtivaDesativa();
+              this._notificationService.success('', 'SLA ativado com sucesso!');
+              sla.Loading = false;
+            },
+            err => {
+              console.error(err);
+              this._notificationService.error('', 'Não foi possível ativar o SLA');
+              sla.Loading = false;
+            });
+        }
+      });
 
   }
 

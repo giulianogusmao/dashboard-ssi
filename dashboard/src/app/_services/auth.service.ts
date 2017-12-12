@@ -24,7 +24,8 @@ export class AuthService {
       const result = {
         Id: 506,
         Nome: 'EZIO H SOUZA FILHO',
-        TipoUsuario: 'Gestor',
+        TipoUsuario: 'Administrador',
+        // TipoUsuario: 'Gestor',
         Areas: [
           {
             ID: 832,

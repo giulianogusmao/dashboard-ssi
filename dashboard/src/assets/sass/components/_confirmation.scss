@@ -1,9 +1,21 @@
+.jaspero__dialog {
+  @extend .modal-content;
+  min-width: 40rem !important;
+
+  @media screen and (max-width: $screen-xs-max)  {
+    width: 30rem !important;
+    min-width: auto !important;
+    max-width: 100% !important;
+  }
+}
+
 .jaspero__dialog-actions {
   .primary {
-    background-color: $cor-danger !important;
+    min-width: 12rem !important;
+    background-color: $cor-primary !important;
 
     &:hover, &:focus, &:active {
-      background-color: $cor-danger-dark !important;
+      background-color: $cor-primary-dark !important;
     }
   }
 
@@ -12,4 +24,21 @@
       background-color: rgba(black, .1) !important;
     }
   }
+
+  button {
+    @extend .btn-telefonica;
+    margin-left: 0 !important;
+    line-height: 1 !important;
+    padding: $btn-padding !important;
+    border-radius: $btn-border-radius !important;
+    min-height: $btn-min-height !important;
+    font-size: $font-size-btn !important;
+    border-color: $btn-border-color !important;
+    border-width: $btn-border !important;
+    text-transform: none !important;
+  }
+}
+
+.jaspero__dialog-title {
+  font-size: 18px !important;
 }

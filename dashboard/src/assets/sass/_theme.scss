@@ -213,10 +213,21 @@ body {
     }
   }
 
+  .btn-aprovar {
+    color: $cor-default;
+  }
+  .btn-reprovar {
+    color: $cor-danger;
+  }
+
   .col-aprovar {
-    min-width: 50px;
-    white-space: nowrap;
+    max-width: 7rem;
+    min-width: 7rem;
     @extend .px-0;
+  }
+
+  .col-editar {
+    max-width: 6rem;
   }
 
   .col-ativo {
@@ -229,19 +240,8 @@ body {
       margin: auto;
     }
 
-    &.ativo .check a {
-      background-color: $cor-default;
-
-      &:hover, &:focus, &:active {
-        background-color: $cor-blue-3;
-      }
-    }
-
-    &:not(.ativo) .check {
-      border: .1rem solid $cor-black-500;
-    }
-
     .check {
+      border: .1rem solid $cor-black-500;
 
       &, a {
         display: inline-block;
@@ -249,9 +249,23 @@ body {
         height: 1.5rem;
         border-radius: 100%;
       }
+    }
 
-      a {
-        border: .1rem solid $cor-default;
+    &.ativo .check {
+      background-color: $cor-default;
+      border-color: transparent;
+    }
+
+    &.ativo.can-disable .check {
+      &:hover, &:focus, &:active {
+        background-color: $cor-danger;
+      }
+    }
+
+    &.inativo.can-enable .check {
+      &:hover, &:focus, &:active {
+        background-color: $cor-success;
+        border-color: transparent;
       }
     }
   }

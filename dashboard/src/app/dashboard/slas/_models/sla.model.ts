@@ -13,7 +13,7 @@ export class Sla implements ISla {
   CanEdit: boolean;
   CanAprove: boolean;
   Ativo: boolean;
-  MotivoRecusa?: string;
+  MotivoRecusa: string;
 
   Loading: boolean;
 
@@ -62,8 +62,8 @@ export class Sla implements ISla {
     return this.Status === 'REPROVADO';
   }
 
-  desativa(): boolean {
-    this.Ativo = false;
+  toggleAtivaDesativa(): boolean {
+    this.Ativo = !this.Ativo;
     return this.Ativo;
   }
 

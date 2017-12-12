@@ -1,7 +1,7 @@
 <div class="expandir-detalhe" [ngClass]="{'expandir': expandir}">
   <div class="modal-header">
     <h4 class="modal-title pull-left">{{title}}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="hideConfirmationModal()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideConfirmationModal()" [disabled]="!active">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

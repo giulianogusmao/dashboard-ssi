@@ -13,7 +13,7 @@ export class NotificationComponent {
   public options = {
     // position: ['bottom', 'left'],
     // showProgressBar: false,
-    preventLastDuplicates: 'visible',
+    // preventLastDuplicates: 'visible',
     timeOut: 5000,
     icons: {
       'alert': null,

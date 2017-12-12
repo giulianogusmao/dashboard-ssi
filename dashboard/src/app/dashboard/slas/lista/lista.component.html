@@ -4,7 +4,7 @@
       <div class="col-sm-12">
 
         <form class="input-group no-border" [formGroup]="form" (ngSubmit)="buscar()">
-          <span class="input-group-btn">
+          <span class="input-group-btn hide">
             <select tooltip="Pesquisar por coluna" formControlName="coluna">
               <option value="" selected>Todos</option>
               <option *ngFor="let column of columns" [value]="column.value">{{ column?.label }}</option>
@@ -54,15 +54,16 @@
             <th class="col-inicioVigencia">Início da vigência</th>
             <th class="col-fimVigencia">Final da vigência</th>
             <th class="col-editar" *ngIf="usuario?.canEdit()">Editar</th>
-            <th class="col-aprovar" *ngIf="usuario?.canAprove()">Aprovar / Reprovar</th>
+            <th class="col-aprovar" *ngIf="usuario?.canAprove()">Aprovar/ Reprovar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let sla of paginationSlas; trackBy: trackById" [ngClass]="{ 'loading': sla.Loading }">
-            <td class="col-ativo" [ngClass]="{ 'ativo': sla?.Ativo }">
+            <td class="col-ativo" [ngClass]="{ 'ativo': sla?.Ativo, 'inativo': !sla?.Ativo, 'can-disable': usuario?.canDisable(), 'can-enable': usuario?.canEnable() }">
               <app-loading *ngIf="sla?.Loading"></app-loading>
               <div class="check">
-                <a href="javascript:void(0)" (click)="desativaSLA(sla)" *ngIf="sla?.Ativo" aria-label="Desativar SLA" tooltip="Desativar SLA" placement="auto"></a>
+                <a href="javascript:void(0)" (click)="desativaSLA(sla)" *ngIf="sla?.Ativo && usuario.canDisable()" aria-label="Desativar SLA" tooltip="Desativar SLA" placement="top"></a>
+                <a href="javascript:void(0)" (click)="ativaSLA(sla)" *ngIf="!sla?.Ativo && usuario.canEnable()" aria-label="Ativar SLA" tooltip="Ativar SLA" placement="top"></a>
               </div>
             </td>
             <td class="col-status">{{ sla?.Status }}</td>

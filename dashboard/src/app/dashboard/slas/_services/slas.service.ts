@@ -86,7 +86,7 @@ export class SlasSevices {
       const subject = new BehaviorSubject<ISla[]>([]);
       setTimeout(() => {
         subject.next(slas);
-      }, 1000);
+      }, 500);
       return subject;
     }
 
@@ -100,10 +100,11 @@ export class SlasSevices {
       });
   }
 
-  desativa(sla: Sla): Observable<IAtivaInativa> {
+  toggleAtivaDesativa(sla: Sla): Observable<IAtivaInativa> {
     const data = <IAtivaInativa>{ idsla: sla.IdSla, ativo: sla.Ativo ? 0 : 1 };
 
     if (Helper.useFake) {
+      console.log(data);
       const subject = new BehaviorSubject(data);
       return subject;
     }

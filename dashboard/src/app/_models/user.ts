@@ -54,6 +54,22 @@ export class User {
     } catch (e) { }
   }
 
+  canDisable(): boolean {
+    if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
+      return true;
+    }
+
+    return false;
+  }
+
+  canEnable(): boolean {
+    if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
+      return true;
+    }
+
+    return false;
+  }
+
   canEdit(): boolean {
     if (this.tipoUsuario.toLocaleLowerCase() === 'administrador') {
       return true;
