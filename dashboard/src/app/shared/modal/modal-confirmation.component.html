@@ -1,0 +1,16 @@
+<div class="expandir-detalhe" [ngClass]="{'expandir': expandir}">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ title }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="hideConfirmationModal()" [disabled]="loading">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="text-center">{{ body }}</p>   
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-telefonica btn-default" [disabled]="loading" (click)="onCancel()">Não</button>
+    <button type="button" class="btn btn-telefonica mw-3" [ngClass]="{ 'btn-primary': !isDanger, 'btn-danger': isDanger }" [disabled]="loading"
+      (click)="onConfirm()">{{ loading ? 'Confirmando...' : 'Sim' }}</button>
+  </div>
+</div>
