@@ -9,6 +9,7 @@ import { AppBootstrapModule } from './bootstrap/index';
 import { AlertModule } from './alert/index';
 import { NotificationModule } from './notification/index';
 import { ConfirmationModule } from './confirmation/index';
+import { TableHelperModule } from './table-helper/index';
 
 // components
 import { LoadingComponent } from './loading/index';
@@ -21,6 +22,7 @@ import { LoadingComponent } from './loading/index';
     AlertModule,
     NotificationModule,
     ConfirmationModule,
+    TableHelperModule,
   ],
   exports: [
     AppBootstrapModule,
@@ -28,6 +30,7 @@ import { LoadingComponent } from './loading/index';
     AlertModule,
     NotificationModule,
     ConfirmationModule,
+    TableHelperModule,
     LoadingComponent,
   ],
   declarations: [

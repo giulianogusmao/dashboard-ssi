@@ -1,0 +1,8 @@
+<div (click)="sort(property)" class="order-table" [ngClass]="{ 'order-active': sortParamns.column == property }">
+  <ng-content></ng-content>
+  <i class="glyphicon" [ngClass]="{
+    'hide': sortParamns.column != property,
+    'glyphicon-triangle-bottom': (sortParamns.column == property && !sortParamns.isDesc),
+    'glyphicon-triangle-top': (sortParamns.column == property && sortParamns.isDesc)
+  }" aria-hidden="true"></i>
+</div>

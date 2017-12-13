@@ -85,7 +85,7 @@ export class User {
     return this._validAccess([
       'administrador',
       // 'gestor',
-      // 'suporte',
+      'suporte',
       // 'generico',
     ]);
   }
@@ -94,7 +94,7 @@ export class User {
     return this._validAccess([
       'administrador',
       // 'gestor',
-      // 'suporte',
+      'suporte',
       // 'generico',
     ]);
   }

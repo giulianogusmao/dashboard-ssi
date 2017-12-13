@@ -1,0 +1,21 @@
+.order-table {
+  position: relative;
+  padding: 0 6px;
+  cursor: pointer;
+
+  &.order-active {
+    padding: 0 2px 0 10px;
+  }
+
+  .glyphicon {
+    position: absolute;
+    font-size: 7px;
+    left: 0;
+    top: 50%;
+    margin-top: -2px;
+  }
+}
+
+[class*="col-"] {
+  padding: 0 !important;
+}

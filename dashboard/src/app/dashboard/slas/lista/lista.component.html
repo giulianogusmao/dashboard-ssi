@@ -53,20 +53,20 @@
       <table class="table table-hover mb-0" *ngIf="paginationSlas && paginationSlas.length">
         <thead>
           <tr>
-            <th class="col-ativo">Ativo</th>
-            <th class="col-status">Status</th>
-            <th class="col-nomeArea">Área</th>
-            <th class="col-complexidade">Complexidade</th>
-            <th class="col-prioridade">Prioridade</th>
-            <th class="col-sLA">SLA (dias)</th>
-            <th class="col-inicioVigencia">Início da vigência</th>
-            <th class="col-fimVigencia">Final da vigência</th>
+            <th app-order-table [property]="'Ativo'" class="col-ativo">Ativo</th>
+            <th app-order-table [property]="'Status'" class="col-status">Status</th>
+            <th app-order-table [property]="'NomeArea'" class="col-nomeArea">Área</th>
+            <th app-order-table [property]="'Complexidade'" class="col-complexidade">Complexidade</th>
+            <th app-order-table [property]="'Prioridade'" class="col-prioridade">Prioridade</th>
+            <th app-order-table [property]="'SLA'" class="col-sLA">SLA (dias)</th>
+            <th app-order-table [property]="'InicioVigencia'" class="col-inicioVigencia">Início da vigência</th>
+            <th app-order-table [property]="'FimVigencia'" class="col-fimVigencia">Final da vigência</th>
             <th class="col-editar" *ngIf="usuario?.canEdit()">Editar</th>
             <th class="col-aprovar" *ngIf="usuario?.canAprove()">Aprovar/ Reprovar</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let sla of paginationSlas; trackBy: trackById" [ngClass]="{ 'loading': sla.Loading }">
+          <tr *ngFor="let sla of paginationSlas | orderTableBy: { property: sortParams.column, direction: sortParams.direction }; trackBy: trackById" [ngClass]="{ 'loading': sla.Loading }">
             <td class="col-ativo" [ngClass]="{ 'ativo': sla?.Ativo, 'inativo': !sla?.Ativo, 'can-disable': usuario?.canDisable(), 'can-enable': usuario?.canEnable() }">
               <app-loading *ngIf="sla?.Loading"></app-loading>
               <div class="check">
@@ -80,11 +80,11 @@
             <td class="col-nomeArea">{{ sla?.NomeArea }}</td>
             <td class="col-complexidade">{{ sla?.Complexidade }}</td>
             <td class="col-prioridade">{{ sla?.Prioridade }}</td>
-            <td class="col-sLA">{{ sla?.SLA }}</td>
+            <td class="col-sLA">{{ sla?.Sla }}</td>
             <td class="col-inicioVigencia">{{ sla?.InicioVigencia }}</td>
             <td class="col-fimVigencia">{{ sla?.FimVigencia }}</td>
             <td class="col-editar" *ngIf="usuario?.canEdit()">
-              <a [routerLink]="['editar/', sla?.IdSla]" *ngIf="sla?.isEditable()" aria-label="Editar SLA" tooltip="Editar SLA" placement="top">
+              <a [routerLink]="['editar/', sla?.idEncode()]" *ngIf="sla?.isEditable()" aria-label="Editar SLA" tooltip="Editar SLA" placement="top">
                 <i class="glyphicon glyphicon-pencil"></i>
               </a>
             </td>

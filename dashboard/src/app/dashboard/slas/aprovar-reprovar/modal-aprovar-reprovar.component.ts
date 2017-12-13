@@ -1,7 +1,7 @@
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { FormGroup, FormBuilder , Validators } from '@angular/forms';
+import { FormBuilder , Validators } from '@angular/forms';
 import { Helper, FormHelper } from '../../../_helpers/index';
 
 @Component({
@@ -19,19 +19,16 @@ export class ModalAprovarReprovarComponent extends FormHelper implements OnInit 
   public expandir: boolean;
   public textButtonConfirm: string;
 
-  public form: FormGroup;
-
   public constructor(
     private _bsModalRef: BsModalRef,
-    private _fb: FormBuilder,
+    protected _fb: FormBuilder,
   ) {
-    super();
+    super(_fb);
   }
 
   public ngOnInit(): void {
     this.onClose = new Subject();
-
-    this.form = this._fb.group({
+    this.createForm({
       justificativa: ['', Validators.required]
     });
   }
@@ -48,7 +45,7 @@ export class ModalAprovarReprovarComponent extends FormHelper implements OnInit 
 
   public onConfirm(): void {
     if (!this.aprovar && this.form.invalid) {
-      Helper.markFormTouched(this.form);
+      this.markFormTouched();
     } else {
       this.active = false;
       this.loading = true;

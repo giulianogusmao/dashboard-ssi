@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { ISelect } from './../_models/index';
 import { AuthService } from '../../../_services/index';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../_services/index';
 export class AreasService {
 
   private _lista: ISelect[] = [];
-  private _subjectLista = new BehaviorSubject<ISelect[]>(this._lista);
+  private _subjectLista = new ReplaySubject<ISelect[]>();
 
   constructor(
     private _authService: AuthService,
@@ -20,11 +20,14 @@ export class AreasService {
   private _load() {
     this._authService.user.subscribe(usuario => {
       try {
-      usuario.areas.forEach(area => {
-          this._lista.push(<ISelect>{ Id: area.ID, Descricao: area.Nome });
-        });
+        setTimeout(() => {
+          usuario.areas.forEach(area => {
+            this._lista.push(<ISelect>{ Id: area.ID, Descricao: area.Nome });
+          });
 
-        this._subjectLista.next(this._lista);
+          this._subjectLista.next(this._lista);
+          this._subjectLista.complete();
+        }, 1000);
       } catch (e) { }
     });
   }

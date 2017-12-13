@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Sla, ISla, ISlaEdit, IAtivaInativa } from '../_models/index';
 import { Helper } from '../../../_helpers/index';
@@ -127,23 +128,28 @@ export class SlasSevices {
       .post<any>(Helper.apiUrl('/sla/AlteraStatus'), data);
   }
 
-  getById(sla: Sla): Observable<ISlaEdit> {
+  getById(id: number): Observable<ISlaEdit> {
     if (Helper.useFake) {
-      const response = new BehaviorSubject<ISlaEdit>({
-        IdSla: 2,
-        idArea: 834,
-        idComplexidade: 2,
-        idPrioridade: 1,
-        idStatus: 1,
-        SLA: 5,
-        Ativo: false,
-        MotivoRecusa: null
-      });
+      console.log(`getById ${id}`);
+      const response = new ReplaySubject<ISlaEdit>();
+      setTimeout(() => {
+        response.next({
+          IdSla: 2,
+          idArea: 834,
+          idComplexidade: 2,
+          idPrioridade: 1,
+          idStatus: 2,
+          SLA: 5,
+          Ativo: false,
+          MotivoRecusa: null
+        });
+        response.complete();
+      }, 1000);
       return response.asObservable();
     }
 
     return this._httpClient
-      .get<ISlaEdit>(Helper.apiUrl(`/sla/RetornaSLA/${sla.IdSla}`));
+      .get<ISlaEdit>(Helper.apiUrl(`/sla/RetornaSLA/${id}`));
   }
 
   get list(): Observable<ISla[]> {

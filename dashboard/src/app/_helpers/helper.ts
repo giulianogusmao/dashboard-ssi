@@ -8,6 +8,7 @@ export class Helper {
     localhost: 'http://localhost:3000/api',
     server: 'http://sla.keysquad.com.br/api',
     assets: 'assets/dados',
+    zion: 'http://10.126.111.177',
   };
 
   constructor() {
@@ -18,12 +19,27 @@ export class Helper {
     return true;
   }
 
-  static apiUrl(url: string, nameServer: string = 'server'): string {
-    if (!this._servers.hasOwnProperty(nameServer)) {
-      throw new Error(`Não existe nenhuma referência para o servidor: ${nameServer}`);
+  static idEncode(id: number | string): string {
+    return btoa(id.toString());
+  }
+
+  static idDecode(idEncoded: string): string {
+    return atob(idEncoded);
+  }
+
+  static apiUrl(url: string, nameServer: string | boolean = 'server'): string {
+    let sr = '';
+
+    if (nameServer === false) {
+      sr = url;
+    } else {
+      if (!this._servers.hasOwnProperty(nameServer.toString())) {
+        throw new Error(`Não existe nenhuma referência para o servidor: ${nameServer}`);
+      }
+
+      sr = nameServer === 'assets' ? `${this._servers[nameServer]}${url}.json` : `${this._servers[nameServer]}${url}`;
     }
 
-    const sr = nameServer === 'assets' ? `${this._servers[nameServer]}${url}.json` : `${this._servers[nameServer]}${url}`;
     return sr;
   }
 
@@ -37,35 +53,5 @@ export class Helper {
     // instead of just logging it to the console
     console.error(error);
     return Observable.throw(error.json()['Message'] || 'Server error');
-  }
-
-  static markFormTouched(form: FormGroup) {
-    // marca os campos como tocados para exibir mensagens de validação
-    Object.keys(form.controls).forEach(campo => {
-      form.get(campo).markAsDirty();
-      form.get(campo).markAsTouched();
-    });
-  }
-
-  static markFormUnTouched(form: FormGroup) {
-    // marca os campos como tocados para exibir mensagens de validação
-    Object.keys(form.controls).forEach(campo => {
-      form.get(campo).markAsPristine();
-      form.get(campo).markAsUntouched();
-    });
-  }
-
-  static markFormDisabled(form: FormGroup) {
-    // desabilita todos os campos do formulário
-    Object.keys(form.controls).forEach(campo => {
-      form.get(campo).disable();
-    });
-  }
-
-  static markFormEnabled(form: FormGroup) {
-    // habilita todos os campos do formulário
-    Object.keys(form.controls).forEach(campo => {
-      form.get(campo).enable();
-    });
   }
 }

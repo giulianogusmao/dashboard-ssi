@@ -10,6 +10,7 @@ import { Sla, ISla } from './../_models/index';
 import { SlasSevices } from '../_services/index';
 import { AuthService } from '../../../_services/index';
 import { User } from '../../../_models/index';
+import { OrderTableByService, SortParams } from '../../../shared/table-helper/index';
 
 @Component({
   selector: 'app-lista',
@@ -45,21 +46,25 @@ export class ListaComponent implements OnInit, OnDestroy {
   itemsPerPage = 10;
   maxSizeNumPages = 4;
 
+  // order columns
+  sortParams: SortParams;
+
   constructor(
     private _fb: FormBuilder,
     private _slaService: SlasSevices,
     private _authService: AuthService,
     private _notificationService: NotificationsService,
     private _confirmationService: ConfirmationService,
+    private _orderTableService: OrderTableByService,
   ) { }
 
   ngOnInit() {
     this._inscricoes.push(this._authService.user.subscribe(
-      user => this.usuario = user,
-      err => {
-        console.error(err);
-      }
-    ));
+      user => this.usuario = user));
+
+    // refresh filter orderTable
+    this._inscricoes.push(this._orderTableService.sortParams.subscribe(
+      params => this.sortParams = params));
 
     // instacia form de pesquisa
     this.form = this._fb.group({

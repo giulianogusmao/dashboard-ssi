@@ -10,11 +10,11 @@
     <app-detalhe [sla]="body" class="expandir-box"></app-detalhe>
 
     <form class="form-horizontal" [formGroup]="form" *ngIf="!aprovar">
-      <div class="form-group mb-0 mt-2" [ngClass]="{'has-error': fieldIsInvalid(form, 'justificativa') }">
+      <div class="form-group mb-0 mt-2" [ngClass]="{'has-error': fieldIsInvalid('justificativa') }">
         <label class="col-md-2 control-label" for="justificativa">Justificativa:</label>
         <div class="col-md-10">
           <input type="text" id="justificativa" class="form-control" formControlName="justificativa" placeholder="Informe a justificativa da reprovação">
-          <span class="help-block" *ngIf="fieldIsInvalid(form, 'justificativa')">Informe uma justificativa para reprovar este SLA.</span>
+          <span class="help-block" *ngIf="fieldIsInvalid('justificativa')">Informe uma justificativa para reprovar este SLA.</span>
         </div>
       </div>
     </form>

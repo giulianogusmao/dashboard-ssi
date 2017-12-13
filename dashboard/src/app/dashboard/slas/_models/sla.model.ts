@@ -1,4 +1,6 @@
 import { ISla } from './sla.interface';
+import { ISlaEdit } from './sla-edit.interface';
+import { Helper } from '../../../_helpers/index';
 
 export class Sla implements ISla {
 
@@ -17,10 +19,16 @@ export class Sla implements ISla {
 
   Loading: boolean;
 
-  setData(data: ISla): Sla {
+  get Sla() {
+    return this.SLA || this['sla'];
+  }
+
+  setData(data: any): Sla {
     Object.keys(data).forEach(key => {
       try {
-        if (data[key]) {
+        if (key.toUpperCase() === 'SLA') {
+          this['sla'] = data[key];
+        } else {
           this[key] = data[key];
         }
       } catch (e) {
@@ -29,6 +37,14 @@ export class Sla implements ISla {
     });
 
     return this;
+  }
+
+  idEncode() {
+    return Helper.idEncode(this.IdSla);
+  }
+
+  idDecode(idEncoded: string): number {
+    return Number(Helper.idDecode(idEncoded));
   }
 
   // regras de negocio
@@ -51,11 +67,27 @@ export class Sla implements ISla {
 
   isEditable(): boolean {
     // somente slas com status novo podem ser editados
-    return this.Ativo && (this.Status === 'NOVO' || this.CanEdit);
+    switch (this.Status) {
+      case 'NOVO':
+      case 'AGUARDANDO APROVAÇÃO':
+        return true;
+    }
+
+    switch (this['idStatus']) {
+      case 1:
+      case 2:
+        return true;
+    }
+
+    if (this.CanEdit) {
+      return true;
+    }
+
+    return false;
   }
 
   canAprove(): boolean {
-    return this.Ativo && (this.CanAprove || this.Status === 'AGUARDANDO APROVAÇÃO');
+    return this.Ativo && this.Status === 'AGUARDANDO APROVAÇÃO' || this.CanAprove;
   }
 
   isReproved() {

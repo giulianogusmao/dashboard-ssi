@@ -212,10 +212,34 @@ body {
   }
 }// fim .painel
 
+iframe {
+  height: calc(100vh - 9.5rem) !important;
+}
+
+.fade {
+  opacity: 0;
+
+  &.fade-in {
+    animation: fade-in 3s linear;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fade-in {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fade-in {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 
 .page-lista-slas {
   table th {
     vertical-align: middle !important;
+    @extend .px-0;
   }
 
   tr {

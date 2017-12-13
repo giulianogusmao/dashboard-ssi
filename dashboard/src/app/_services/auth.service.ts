@@ -1,9 +1,10 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 // import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { Helper } from '../_helpers/helper';
 import { User, IUser, IArea } from '../_models/index';
@@ -12,7 +13,7 @@ import { User, IUser, IArea } from '../_models/index';
 export class AuthService {
 
   private _user = new User();
-  private _subjectUser = new BehaviorSubject<User>(this._user);
+  private _subjectUser = new ReplaySubject<User>();
 
   constructor(
     private _router: Router,

@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <div class="section-page">
+  <div class="section-page" [ngClass]="{'linha-loading': loading }">
 
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -16,39 +16,47 @@
           </p>
 
           <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idArea') }">
-            <label class="col-md-2 control-label" for="area">Área:</label>
+            <label class="col-md-2 control-label nowrap" for="area">Área:
+              <span class="text-danger">*</span>
+            </label>
             <div class="col-md-10">
               <select id="area" class="form-control" formControlName="idArea">
-                <option *ngFor="let area of areas; trackBy: trackById;" value="{{ area?.Id }}">{{ area?.Descricao }}</option>
+                <option *ngFor="let area of areas; trackBy: trackById;" [value]="area?.Id">{{ area?.Descricao }}</option>
               </select>
               <span class="help-block" *ngIf="fieldIsInvalid('idArea')">Selecione uma área.</span>
             </div>
           </div>
 
           <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idComplexidade') }">
-            <label class="col-md-2 control-label" for="complexidade">Complexidade:</label>
+            <label class="col-md-2 control-label nowrap" for="complexidade">Complexidade:
+              <span class="text-danger">*</span>
+            </label>
             <div class="col-md-10">
               <select id="complexidade" class="form-control" formControlName="idComplexidade">
-                <option *ngFor="let complexidade of complexidades; trackBy: trackById;" value="{{ complexidade?.Id }}">{{ complexidade?.Descricao }}</option>
+                <option *ngFor="let complexidade of complexidades; trackBy: trackById;" [value]="complexidade?.Id">{{ complexidade?.Descricao }}</option>
               </select>
               <span class="help-block" *ngIf="fieldIsInvalid('idComplexidade')">Selecione o nível de complexidade do SLA.</span>
             </div>
           </div>
 
-          <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('sla') }">
-            <label class="col-md-2 control-label" for="sla">SLA:</label>
+          <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('SLA') }">
+            <label class="col-md-2 control-label nowrap" for="sla">SLA:
+              <span class="text-danger">*</span>
+            </label>
             <div class="col-md-10">
               <div class="input-group">
-                <input type="number" id="sla" placeholder="Informe um SLA" class="form-control" formControlName="sla">
+                <input type="number" id="sla" placeholder="Informe um SLA" class="form-control" formControlName="SLA">
                 <span class="input-group-addon input-group-addon-telefonica">dia(s)</span>
               </div>
-              <span class="help-block" *ngIf="fieldIsRequired('sla')">Informe a quantidade de dias de um SLA.</span>
-              <span class="help-block" *ngIf="form.get('sla')?.errors?.range && fieldIsInvalid('sla')">Informe um número entre {{ sla.min }} e {{ sla.max }}</span>
+              <span class="help-block" *ngIf="fieldIsRequired('SLA')">Informe a quantidade de dias de um SLA.</span>
+              <span class="help-block" *ngIf="form.get('SLA')?.errors?.range && fieldIsInvalid('SLA')">Informe um número entre {{ sla.min }} e {{ sla.max }}</span>
             </div>
           </div>
 
-          <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idPrioridade') }">
-            <label class="col-md-2 control-label">Prioridade:</label>
+          <div class="form-group custom-radio" [ngClass]="{'has-error': fieldIsInvalid('idPrioridade') }">
+            <label class="col-md-2 control-label nowrap">Prioridade:
+              <span class="text-danger">*</span>
+            </label>
             <div class="col-md-10">
               <div class="radio radio-inline" *ngFor="let prioridade of prioridades; trackBy: trackById;">
                 <label>
@@ -61,11 +69,11 @@
             </div>
           </div>
 
-          <div class="form-group" [ngClass]="{'has-error': fieldIsInvalid('idStatus') }">
-            <label class="col-md-2 control-label">Status:</label>
+          <div class="form-group custom-radio" [ngClass]="{'has-error': fieldIsInvalid('idStatus') }">
+            <label class="col-md-2 control-label nowrap">Status:</label>
             <div class="col-md-10">
               <ng-template ngFor let-item [ngForOf]="status" [ngForTrackBy]="trackById">
-                <div class="radio radio-inline" *ngIf="item?.isVisibleOnCreate()">
+                <div class="radio radio-inline">
                   <label>
                     <input type="radio" formControlName="idStatus" [value]="item?.Id">
                     <div class="check"></div>
@@ -78,6 +86,17 @@
             </div>
           </div>
 
+          <div class="form-group" *ngIf="!actionNovo && usuario && usuario?.canEnable() && usuario?.canDisable()">
+            <div class="col-md-10 col-md-offset-2">
+              <div class="checkbox">
+                <input type="checkbox" class="custom-checkbox" id="ativo" formControlName="Ativo" [value]="Ativo">
+                <label for="ativo">
+                    ATIVO
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-10 col-md-offset-2">
               <div class="flex space-between">
@@ -87,7 +106,7 @@
 
                 <div>
                   <button type="button" class="btn btn-telefonica btn-default" [disabled]="btnCadastrar?.loading || form.pristine" (click)="formReset()"
-                    *ngIf="!sla?.idsla && sla?.isEditable() || actionNovo">
+                    *ngIf="actionNovo">
                     Limpar
                   </button>
 

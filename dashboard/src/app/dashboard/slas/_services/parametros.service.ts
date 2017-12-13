@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { ISelect, IParametros, Status } from '../_models/index';
 import { Helper } from '../../../_helpers/index';
@@ -10,7 +11,7 @@ import { Helper } from '../../../_helpers/index';
 export class ParametrosSevices {
 
   private _parametros: IParametros = <IParametros>{};
-  private _observableParams: BehaviorSubject<IParametros> = new BehaviorSubject(this._parametros);
+  private _observableParams: ReplaySubject<IParametros> = new ReplaySubject();
   private _observableErrors: BehaviorSubject<any> = new BehaviorSubject([]);
 
   constructor(
@@ -29,9 +30,20 @@ export class ParametrosSevices {
     return this._httpClient
       .get<IParametros>(Helper.apiUrl('/sla/Parametros'))
       .do(parametros => {
-        this._parametros = parametros;
-        this._parametros.SlaStatus = this._parametros.SlaStatus.map(status => new Status(status.Id, status.Descricao));
-        this._observableParams.next(this._parametros);
+        setTimeout(() => {
+          this._parametros = parametros;
+          this._parametros.SlaStatus = this._parametros.SlaStatus.map(status => new Status(status.Id, status.Descricao));
+          this._observableParams.next(this._parametros);
+          this._observableParams.complete();
+        }, 2000);
+      })
+      .catch((err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', err.error.message);
+        }
+
+        return Observable.empty();
       });
   }
 

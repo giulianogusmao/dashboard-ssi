@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -7,7 +7,7 @@ import { AuthService } from '../../../_services/index';
 @Injectable()
 export class ListGuard implements CanActivate {
 
-  private _subject = new BehaviorSubject<boolean>(null);
+  private _subject = new ReplaySubject<boolean>();
 
   constructor(
     private _router: Router,
