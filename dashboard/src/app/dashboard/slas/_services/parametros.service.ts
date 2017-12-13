@@ -39,11 +39,10 @@ export class ParametrosSevices {
       })
       .catch((err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
-          // A client-side or network error occurred. Handle it accordingly.
           console.error('An error occurred:', err.error.message);
         }
-
-        return Observable.empty();
+        this._observableErrors.next({ Error: true, Message: err.error.message });
+        return this._observableErrors.asObservable();
       });
   }
 

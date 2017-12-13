@@ -103,6 +103,9 @@ export class NovoComponent extends FormHelper implements OnInit, OnDestroy {
           this.formSetValues(this.sla);
         }
       }, 100);
+    }, err => {
+      this.loading = false;
+      console.error(err);
     }));
   }
 
@@ -211,12 +214,14 @@ export class NovoComponent extends FormHelper implements OnInit, OnDestroy {
     observableError.subscribe(parametros => {
       try {
         if (parametros.Error) {
+          this.loading = false;
+          this.btnCadastrar.disabled = true;
           this.updateItemsSelect('complexidades', [], 'idComplexidade', 'Não foi possível carregar as complexidades');
           this.updateItemsSelect('prioridades', [], 'idPrioridade', 'Não foi possível carregar as prioridades');
-          // this.updateItemsSelect('status', [], 'idStatus', 'Não foi possível carregar os status');
+          this.updateItemsSelect('status', [], 'idStatus', 'Não foi possível carregar os status');
           // this.btnCadastrar.disabled = true;
         }
-      } catch (e) { }
+      } catch (e) {}
     });
 
     return observable;

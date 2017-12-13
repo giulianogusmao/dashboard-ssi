@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+import { AuthInterceptor } from '../_interceptors/index';
 
 // modules
 import { SharedModule } from '../shared/shared.module';
@@ -23,5 +26,13 @@ import { RecuperarAcessoComponent } from './recuperar-acesso/recuperar-acesso.co
     LoginComponent,
     RecuperarAcessoComponent,
   ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    AuthInterceptor,
+  ]
 })
 export class AccountModule { }

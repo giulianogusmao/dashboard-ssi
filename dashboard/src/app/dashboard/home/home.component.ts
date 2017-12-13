@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       usuario => {
         this.usuario = usuario;
         this._link = Helper.apiUrl(
-          'https://esquadriasinova.com.br/', false);
-          // `/ibi_apps/WFServlet.ibfs?IBIAPP_app=ped_ssi&IBIF_ex=PED_SSI_FEX_DASHBOARD&PESSOA=${usuario.id}`, 'zion');
+          // 'https://esquadriasinova.com.br/', false);
+          `/ibi_apps/WFServlet.ibfs?IBIAPP_app=ped_ssi&IBIF_ex=PED_SSI_FEX_DASHBOARD&PESSOA=${usuario.id}`, 'zion');
 
         this.url = this._sanitizer.bypassSecurityTrustResourceUrl(this._link);
 

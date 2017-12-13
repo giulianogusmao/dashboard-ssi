@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms/src/model';
 export class Helper {
 
   private static _servers: object = {
-    localhost: 'http://localhost:3000/api',
+    localhost: 'http://localhost:6243/api',
     server: 'http://sla.keysquad.com.br/api',
     assets: 'assets/dados',
     zion: 'http://10.126.111.177',
@@ -16,7 +16,7 @@ export class Helper {
   }
 
   static useFake(): boolean {
-    return true;
+    return false;
   }
 
   static idEncode(id: number | string): string {
@@ -33,7 +33,8 @@ export class Helper {
     if (nameServer === false) {
       sr = url;
     } else {
-      if (!this._servers.hasOwnProperty(nameServer.toString())) {
+      nameServer = nameServer.toString();
+      if (!this._servers.hasOwnProperty(nameServer)) {
         throw new Error(`Não existe nenhuma referência para o servidor: ${nameServer}`);
       }
 

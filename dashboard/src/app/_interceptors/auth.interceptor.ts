@@ -12,6 +12,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
     req = req.clone({
       withCredentials: true,
+      // setHeaders: {
+      // //   'accept': 'application/json',
+      // //   'content-type': 'application/json',
+      //   'username': 'redecorp\\eziof'
+      // },
+      // withCredentials: true,
       // headers: new HttpHeaders({ 'username': 'redecorp\\eziof' })
     });
 

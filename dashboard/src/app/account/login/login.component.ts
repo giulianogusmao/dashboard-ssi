@@ -1,3 +1,4 @@
+import { Helper } from './../../_helpers/helper';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -26,18 +27,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     if (this.form.valid) {
-      this.aguardando = true;
-      this._inscricao = this._authService
-        .login(this.form.value.login, this.form.value.password)
-        .subscribe(
-          () => this._router.navigate(['/dashboard']),
-          err => {
-            this.aguardando = false;
-            this._alertService.error(err);
-          });
+      this._authenticateUser(this.form.value.login, this.form.value.password);
     } else {
       this._alertService.default('Informe seu Login e Senha');
     }
+  }
+
+  private _authenticateUser(login?: string, password?: string) {
+    this.aguardando = true;
+    this._inscricao = this._authService
+      .login(login, password)
+      .subscribe(
+      () => this._router.navigate(['/dashboard']),
+      err => {
+        this.aguardando = false;
+        console.error(err['message']);
+        this._alertService.error('Não foi possível realizar o login');
+      });
   }
 
   ngOnInit() {
@@ -47,6 +53,10 @@ export class LoginComponent implements OnInit, OnDestroy {
       login: [null, Validators.required],
       password: [null, Validators.required],
     });
+
+    if (!Helper.useFake()) {
+      this._authenticateUser();
+    }
   }
 
   ngOnDestroy() {
